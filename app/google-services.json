@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "727727193919",
+    "firebase_url": "https://faxinet-abfc0.firebaseio.com",
+    "project_id": "faxinet-abfc0",
+    "storage_bucket": "faxinet-abfc0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727727193919:android:a69f1e60adff67d0",
+        "android_client_info": {
+          "package_name": "com.example.android.quickdoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727727193919-4fgda69ppqn9on5jadqrrg5e38844328.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.quickdoc",
+            "certificate_hash": "be8a08ea748467e6a8aca4a5f871e8f51f36fee4"
+          }
+        },
+        {
+          "client_id": "727727193919-0vt998k91ii5ojcpohuc310hivl0q5bv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxpz_UIuHmLsOMjAqgbov31iO3-Y6HWkU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727727193919-0vt998k91ii5ojcpohuc310hivl0q5bv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

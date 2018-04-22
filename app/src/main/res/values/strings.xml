@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">QuickDoc</string>
+    <string name="schedule_a_doctor_s_appointment">Schedule a Doctor\'s Appointment</string>
+    <string name="check_your_next_doctor_s_appoitments">Check Your Next Doctor\'s Appoitments</string>
+    <string name="review_your_last_doctor_s_appointments">Review Your Last Doctor\'s Appointments</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.quickdoc.MainActivity">
+
+
+    <Spinner
+        android:id="@+id/spinner_doctor_speciallity"
+        android:layout_marginTop="42dp"
+        style="@style/quickdoc_mainactivity" />
+
+    <Button
+        android:id="@+id/button_schedule_"
+        style="@style/quickdoc_mainactivity"
+        android:text="@string/schedule_a_doctor_s_appointment" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/quickdoc_mainactivity"
+        android:text="@string/check_your_next_doctor_s_appoitments" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/quickdoc_mainactivity"
+        android:text="@string/review_your_last_doctor_s_appointments" />
+
+</LinearLayout>
