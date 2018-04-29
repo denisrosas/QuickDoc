@@ -11,10 +11,11 @@
     <Spinner
         android:id="@+id/spinner_doctor_speciallity"
         android:layout_marginTop="42dp"
+        android:prompt="@string/choose_an_speciallity_to_search_for"
         style="@style/quickdoc_mainactivity" />
 
     <Button
-        android:id="@+id/button_schedule_"
+        android:id="@+id/button_schedule_appointment"
         style="@style/quickdoc_mainactivity"
         android:text="@string/schedule_a_doctor_s_appointment" />
     
@@ -28,12 +29,12 @@
         android:background="@color/colorPrimaryDark" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_check_next_appointments"
         style="@style/quickdoc_mainactivity"
         android:text="@string/check_your_next_doctor_s_appoitments" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_review_doctors"
         style="@style/quickdoc_mainactivity"
         android:text="@string/review_your_last_doctor_s_appointments" />
 

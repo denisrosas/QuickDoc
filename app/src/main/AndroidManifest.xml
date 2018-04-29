@@ -20,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DoctorsListBySpecialtyActivity" />
+        <activity android:name=".ShowNextAppointmentsActivity" />
+        <activity android:name=".ReviewPastAppointmentsActivity"></activity>
     </application>
 
 </manifest>
