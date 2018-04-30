@@ -1,20 +1,24 @@
-package com.example.android.quickdoc.firebase_classes;
+package com.example.android.quickdoc.firebaseClasses;
 
 import android.location.Location;
 
-public class doctorDetails {
+public class DoctorDetails {
 
     //data used for quick search
-    private String id;
+    private int id;
     private String name;
-    private String speciality;
+    private int speciality;
     private float avaregeReviews;
+
+    private int reviewsCount;
     private Location addressLatLng;
 
     //data used for showing details
     private String addressExtended;
     private String phoneNumber;
-    private String presentation;
+
+    private String presentation_en;
+    private String presentation_pt;
 
     //accepted health care planes
     private boolean acceptsAmil;
@@ -24,24 +28,26 @@ public class doctorDetails {
     private boolean acceptsSulamerica;
     private boolean acceptsUnimed;
 
-    public doctorDetails(String id, String name, String speciality, float avaregeReviews, Location addressLatLng, String addressExtended, String phoneNumber, String presentation, boolean acceptsSulamerica, boolean acceptsAmil, boolean acceptsPreventSenior, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsUnimed) {
+    public DoctorDetails(int id, String name, int speciality, float avaregeReviews, int reviewsCount, Location addressLatLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
         this.id = id;
         this.name = name;
         this.speciality = speciality;
         this.avaregeReviews = avaregeReviews;
+        this.reviewsCount = reviewsCount;
         this.addressLatLng = addressLatLng;
         this.addressExtended = addressExtended;
         this.phoneNumber = phoneNumber;
-        this.presentation = presentation;
-        this.acceptsSulamerica = acceptsSulamerica;
+        this.presentation_en = presentation_en;
+        this.presentation_pt = presentation_pt;
         this.acceptsAmil = acceptsAmil;
-        this.acceptsPreventSenior = acceptsPreventSenior;
         this.acceptsBradescoSaude = acceptsBradescoSaude;
         this.acceptsHapVida = acceptsHapVida;
+        this.acceptsPreventSenior = acceptsPreventSenior;
+        this.acceptsSulamerica = acceptsSulamerica;
         this.acceptsUnimed = acceptsUnimed;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -49,7 +55,7 @@ public class doctorDetails {
         return name;
     }
 
-    public String getSpeciality() {
+    public int getSpeciality() {
         return speciality;
     }
 
@@ -69,8 +75,16 @@ public class doctorDetails {
         return phoneNumber;
     }
 
-    public String getPresentation() {
-        return presentation;
+    public String getPresentationEn() {
+        return presentation_en;
+    }
+
+    public String getPresentationPt() {
+        return presentation_pt;
+    }
+
+    public int getReviewsCount() {
+        return reviewsCount;
     }
 
     public boolean isAcceptsSulamerica() {

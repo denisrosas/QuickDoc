@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">QuickDoc</string>
-    <string name="schedule_a_doctor_s_appointment">Schedule a Doctor\'s Appointment</string>
-    <string name="check_your_next_doctor_s_appoitments">Check Your Next Doctor\'s Appoitments</string>
-    <string name="review_your_last_doctor_s_appointments">Review Your Last Doctor\'s Appointments</string>
+    <string name="schedule_a_doctor_s_appointment">Agende uma consulta médica</string>
+    <string name="check_your_next_doctor_s_appoitments">Veja suas próximas consultas médicas</string>
+    <string name="review_your_last_doctor_s_appointments">Avalie suas consultas passadas</string>
+    <string name="choose_an_speciallity_to_search_for">Selecione uma especialidade médica</string>
+    <string name="firebase_sign_out">Deslogar</string>
+    <string name="select_a_specialty">Selecione uma especialidade médica:</string>
+    <string name="unknown">Desconhecido</string>
+    <string name="km">Km</string>
+    <string name="days">dias</string>
 </resources>

@@ -24,6 +24,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void startFirebaseDBAndRef() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES);
+        if(Locale.getDefault().getLanguage().equals("pt"))
+            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES);
+        else
+            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES);
     }
 
     /** Start the Firebase Database and set the OnClickListeners to the 3 buttons of MainActivity */
@@ -152,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     GenericTypeIndicator<ArrayList<String>> typeIndicator = new GenericTypeIndicator<ArrayList<String>>(){};
                     mListDoctorsSpeciality = dataSnapshot.getValue(typeIndicator);
-                    arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                    arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                             R.layout.spinner_doctor_speciality_item, mListDoctorsSpeciality);
                     spinner.setAdapter(arrayAdapter);
                 }

@@ -7,23 +7,29 @@
     android:orientation="vertical"
     tools:context="com.example.android.quickdoc.MainActivity">
 
+    <TextView
+        android:layout_marginTop="42dp"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/explanation_text"
+        android:textSize="18sp"
+        android:text="@string/select_a_specialty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Spinner
         android:id="@+id/spinner_doctor_speciallity"
-        android:layout_marginTop="42dp"
         android:prompt="@string/choose_an_speciallity_to_search_for"
         style="@style/quickdoc_mainactivity" />
 
     <Button
         android:id="@+id/button_schedule_appointment"
+        android:layout_marginTop="0dp"
         style="@style/quickdoc_mainactivity"
         android:text="@string/schedule_a_doctor_s_appointment" />
     
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:background="@color/colorPrimaryDark" />
