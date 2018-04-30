@@ -1,4 +1,4 @@
-package com.example.android.quickdoc.firebaseClasses;
+package com.example.android.quickdoc.dataClasses;
 
 
 import android.location.Location;

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.android.quickdoc.R;
 import com.example.android.quickdoc.externalClasses.CropCircleTransformation;
-import com.example.android.quickdoc.firebaseClasses.DoctorDetailsToUser;
+import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
