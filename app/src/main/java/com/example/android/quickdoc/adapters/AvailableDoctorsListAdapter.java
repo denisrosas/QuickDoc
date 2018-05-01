@@ -52,7 +52,7 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
     @Override
     public void onBindViewHolder(@NonNull doctorDetailViewHolder holder, int position) {
 
-        int doctorId = doctorDetailsList.get(position).getId();
+        int doctorId = doctorDetailsList.get(position).getDoctorId();
         setFirebaseDoctorPhoto(holder.smallPhoto, doctorId);
 
         //set Doctors name

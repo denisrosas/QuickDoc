@@ -5,9 +5,7 @@ import android.location.Location;
 public class DoctorDetails {
 
     //data used for quick search
-    private int id;
     private String name;
-    private int speciality;
     private float avaregeReviews;
 
     private int reviewsCount;
@@ -28,10 +26,9 @@ public class DoctorDetails {
     private boolean acceptsSulamerica;
     private boolean acceptsUnimed;
 
-    public DoctorDetails(int id, String name, int speciality, float avaregeReviews, int reviewsCount, Location addressLatLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
-        this.id = id;
+    public DoctorDetails(String name, float avaregeReviews, int reviewsCount, Location addressLatLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
+
         this.name = name;
-        this.speciality = speciality;
         this.avaregeReviews = avaregeReviews;
         this.reviewsCount = reviewsCount;
         this.addressLatLng = addressLatLng;
@@ -47,16 +44,8 @@ public class DoctorDetails {
         this.acceptsUnimed = acceptsUnimed;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public int getSpeciality() {
-        return speciality;
     }
 
     public float getAvaregeReviews() {

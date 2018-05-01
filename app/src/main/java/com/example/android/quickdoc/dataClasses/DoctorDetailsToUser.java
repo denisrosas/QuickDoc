@@ -21,8 +21,10 @@ public class DoctorDetailsToUser extends DoctorDetails {
 
     private int waitingDays;
 
-    public DoctorDetailsToUser(int id, String name, int speciality, float avaregeReviews, int reviewsCount, Location addressLatLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
-        super(id, name, speciality, avaregeReviews, reviewsCount, addressLatLng, addressExtended, phoneNumber, presentation_en, presentation_pt, acceptsAmil, acceptsBradescoSaude, acceptsHapVida, acceptsPreventSenior, acceptsSulamerica, acceptsUnimed);
+    private int doctorId;
+
+    public DoctorDetailsToUser(String name, float avaregeReviews, int reviewsCount, Location addressLatLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
+        super(name, avaregeReviews, reviewsCount, addressLatLng, addressExtended, phoneNumber, presentation_en, presentation_pt, acceptsAmil, acceptsBradescoSaude, acceptsHapVida, acceptsPreventSenior, acceptsSulamerica, acceptsUnimed);
     }
 
     //constructor calling super
@@ -36,6 +38,10 @@ public class DoctorDetailsToUser extends DoctorDetails {
         return waitingDays;
     }
 
+    public int getDoctorId() {
+        return doctorId;
+    }
+
     //setters
     public void setDistanceToDoctor(float distanceToDoctor) {
         this.distanceToDoctor = distanceToDoctor;
@@ -43,6 +49,10 @@ public class DoctorDetailsToUser extends DoctorDetails {
 
     public void setWaitingDays(int waitingDays) {
         this.waitingDays = waitingDays;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 
     //sort by Reviews
