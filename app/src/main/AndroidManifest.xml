@@ -22,7 +22,9 @@
         </activity>
         <activity android:name=".DoctorsListBySpecialtyActivity" />
         <activity android:name=".ShowNextAppointmentsActivity" />
-        <activity android:name=".ReviewPastAppointmentsActivity"></activity>
+        <activity android:name=".ReviewPastAppointmentsActivity" />
+        <activity android:name=".DoctorDetailsActivity" />
+        <activity android:name=".SelectAppDateTimeActivity"></activity>
     </application>
 
 </manifest>
