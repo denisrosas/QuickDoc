@@ -1,7 +1,5 @@
 package com.example.android.quickdoc.dataClasses;
 
-import android.location.Location;
-
 public class DoctorDetails {
 
     //data used for quick search
@@ -9,7 +7,8 @@ public class DoctorDetails {
     private float avaregeReviews;
 
     private int reviewsCount;
-    private Location addressLocation;
+    private float addressLat;
+    private float addressLng;
 
     //data used for showing details
     private String addressExtended;
@@ -26,12 +25,14 @@ public class DoctorDetails {
     private boolean acceptsSulamerica;
     private boolean acceptsUnimed;
 
-    public DoctorDetails(String name, float avaregeReviews, int reviewsCount, Location addressLocation, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
+    public DoctorDetails(){}
 
+    public DoctorDetails(String name, float avaregeReviews, int reviewsCount, float addressLat, float addressLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
         this.name = name;
         this.avaregeReviews = avaregeReviews;
         this.reviewsCount = reviewsCount;
-        this.addressLocation = addressLocation;
+        this.addressLat = addressLat;
+        this.addressLng = addressLng;
         this.addressExtended = addressExtended;
         this.phoneNumber = phoneNumber;
         this.presentation_en = presentation_en;
@@ -52,8 +53,12 @@ public class DoctorDetails {
         return avaregeReviews;
     }
 
-    public Location getAddressLocation() {
-        return addressLocation;
+    public float getAddressLat() {
+        return addressLat;
+    }
+
+    public float getAddressLng() {
+        return addressLng;
     }
 
     public String getAddressExtended() {

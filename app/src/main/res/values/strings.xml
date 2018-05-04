@@ -9,4 +9,6 @@
     <string name="unknown">Unknown</string>
     <string name="km">Km</string>
     <string name="days">days</string>
+    <string name="user_not_logged_in">User is not logged-in</string>
+    <string name="fail_to_connect">Failed to connect to server. Please check your internet connection.</string>
 </resources>

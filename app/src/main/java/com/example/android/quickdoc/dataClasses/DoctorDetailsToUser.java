@@ -1,8 +1,6 @@
 package com.example.android.quickdoc.dataClasses;
 
 
-import android.location.Location;
-
 import java.util.Comparator;
 
 /** This Class has all the Doctor's details, but has information specific to the user
@@ -23,11 +21,11 @@ public class DoctorDetailsToUser extends DoctorDetails {
 
     private int doctorId;
 
-    public DoctorDetailsToUser(String name, float avaregeReviews, int reviewsCount, Location addressLatLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
-        super(name, avaregeReviews, reviewsCount, addressLatLng, addressExtended, phoneNumber, presentation_en, presentation_pt, acceptsAmil, acceptsBradescoSaude, acceptsHapVida, acceptsPreventSenior, acceptsSulamerica, acceptsUnimed);
-    }
-
     //constructor calling super
+
+    public DoctorDetailsToUser(DoctorDetails doctorDetails) {
+        super(doctorDetails.getName(), doctorDetails.getAvaregeReviews(), doctorDetails.getReviewsCount(), doctorDetails.getAddressLat(), doctorDetails.getAddressLng(), doctorDetails.getAddressExtended(), doctorDetails.getPhoneNumber(), doctorDetails.getPresentationEn(), doctorDetails.getPresentationPt(), doctorDetails.isAcceptsAmil(), doctorDetails.isAcceptsBradescoSaude(), doctorDetails.isAcceptsHapVida(), doctorDetails.isAcceptsPreventSenior(), doctorDetails.isAcceptsSulamerica(), doctorDetails.isAcceptsUnimed());
+    }
 
     //Getters
     public float getDistanceToDoctor() {

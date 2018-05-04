@@ -12,26 +12,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.quickdoc.R;
-import com.example.android.quickdoc.externalClasses.CropCircleTransformation;
 import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
+import com.example.android.quickdoc.externalClasses.CropCircleTransformation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableDoctorsListAdapter.doctorDetailViewHolder> {
 
     private ArrayList<DoctorDetailsToUser> doctorDetailsList;
-    private int specialty;
+    private String specialtyKey;
 
-    public AvailableDoctorsListAdapter(ArrayList<DoctorDetailsToUser> doctorDetailsList, int specialty, Context context) {
+    public AvailableDoctorsListAdapter(ArrayList<DoctorDetailsToUser> doctorDetailsList, String specialtyKey, Context context) {
         this.doctorDetailsList = doctorDetailsList;
-        this.specialty = specialty;
+        this.specialtyKey = specialtyKey;
         this.context = context;
     }
 
@@ -59,12 +57,11 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
         holder.doctorName.setText(doctorDetailsList.get(position).getName());
 
         //Set Dotors avarage reviews
-        NumberFormat oneDecimalFormat = new DecimalFormat("0.0");
-        holder.doctorReviews.setText(oneDecimalFormat.format(Float.toString(doctorDetailsList.get(position).getAvaregeReviews())));
+        //NumberFormat oneDecimalFormat = new DecimalFormat("0.0");
+        holder.doctorReviews.setText(Float.toString(doctorDetailsList.get(position).getAvaregeReviews()));
 
         //Set TextView distance to doctor
-        String distanceString = oneDecimalFormat.format(doctorDetailsList.get(position).getDistanceToDoctor())
-                +" "+context.getString(R.string.km);
+        String distanceString = doctorDetailsList.get(position).getDistanceToDoctor()+" "+context.getString(R.string.km);
         holder.doctorDistance.setText(distanceString);
 
         //Set Doctors days to next appointment
@@ -73,18 +70,18 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
     }
 
     /** Gets the image from Firebase and set in the imageView using Picasso*/
-    private void setFirebaseDoctorPhoto(final ImageView smallPhotoView, int position) {
+    private void setFirebaseDoctorPhoto(final ImageView smallPhotoView, int doctorId) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
 
-        //Path example: photos/specialty3/doctor_small_2.jpg
-        storageReference.child(PHOTOS_FOLDER+"/"+SPECIALTY_FOLDER+specialty+"/"
-            +SMALL_PHOTO_FILENAME_PREFIX+position+PHOTO_EXTENSION).getDownloadUrl()
+        //Path example: photos/cardiologist/doctor_small2.jpg
+        storageReference.child(PHOTOS_FOLDER+"/"+specialtyKey +"/"
+            +SMALL_PHOTO_FILENAME_PREFIX+doctorId+PHOTO_EXTENSION).getDownloadUrl()
             .addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    Picasso.get().load(uri).transform(new CropCircleTransformation()).into(smallPhotoView);
+                    Picasso.get().load(uri).placeholder(R.drawable.doctor_small_default).transform(new CropCircleTransformation()).into(smallPhotoView);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

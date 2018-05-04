@@ -16,7 +16,7 @@
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/doctor" />
+        app:srcCompat="@drawable/doctor_small_default" />
 
     <TextView
         android:id="@+id/doctor_name"

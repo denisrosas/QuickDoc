@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDocSpecialtiesDBReference;
     private ChildEventListener mChildEventListener;
-    private static final String FIREBASE_CHILD_SPECIALTIES = "doctor_specialties";
+    private static final String FIREBASE_CHILD_SPECIALTIES = "specialties";
     private static final String SELECTED_DOCTOR_SPECIALTY = "SELECTED_DOCTOR_SPECIALTY";
 
     //Firebase Authentication Variables
@@ -56,30 +56,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //check if user is connected
-        createFirebaseAuthListener();
-
         //Starting Butter Knife
         ButterKnife.bind(this);
+
+        //Starting Firebase Database Instance and Reference points to child
+        startFirebaseDBAndRef();
+
+        //check if user is connected. If is, attach the ChildEventListener
+        createFirebaseAuthListener();
 
         //Settting Button's OnClickListeners
         startViewsAndButtons();
 
-        //Starting Firebase Database Access
-        startFirebaseDBAndRef();
     }
 
     private void startFirebaseDBAndRef() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         if(Locale.getDefault().getLanguage().equals("pt"))
-            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES);
+            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES).child("pt");
         else
-            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES);
+            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES).child("en");
     }
 
     /** Start the Firebase Database and set the OnClickListeners to the 3 buttons of MainActivity */
     private void startViewsAndButtons() {
 
+        //wait for Specialties list from firebase to allow pressign the button
+        buttonScheduleAppointment.setEnabled(false);
         buttonScheduleAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                             R.layout.spinner_doctor_speciality_item, mListDoctorsSpeciality);
                     spinner.setAdapter(arrayAdapter);
+                    buttonScheduleAppointment.setEnabled(true);
                 }
 
                 @Override
@@ -198,21 +202,27 @@ public class MainActivity extends AppCompatActivity {
         if(mFirebaseAuth!=null)
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
 
-        arrayAdapter.clear();
-        arrayAdapter.notifyDataSetChanged();
+        if(arrayAdapter!=null) {
+            arrayAdapter.clear();
+            arrayAdapter.notifyDataSetChanged();
+        }
         detachDatabaseReadListener();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+        if(mFirebaseAuth!=null)
+            mFirebaseAuth.addAuthStateListener(mAuthStateListener);
 
+        attachDatabaseReadListener();
     }
 
     private void onSignedOutCleanup() {
-        arrayAdapter.clear();
-        arrayAdapter.notifyDataSetChanged();
+        if(arrayAdapter!=null) {
+            arrayAdapter.clear();
+            arrayAdapter.notifyDataSetChanged();
+        }
         detachDatabaseReadListener();
         mFirebaseAuth.signOut();
     }
