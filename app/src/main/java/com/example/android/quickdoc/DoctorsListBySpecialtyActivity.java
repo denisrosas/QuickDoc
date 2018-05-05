@@ -73,25 +73,6 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         //Get Specialty name and key from Database
         attachSpecDBReadListener(selectedSpecialty);
 
-        // TODO
-//        0 - pegar a lsta de especialidades e pegar a posicao
-
-
-//        1 - pegar lista de medicos de uma especialidade do Firebase como uma lista de DoctorDetails
-//        2 - Converter a lista para DoctorDetailsToUser
-//        3 - Setar a distancia do usuario para o consultorio
-//        4 - Fazer um loop. para cada médicos.
-//                Segundo loop de dia apos dia. Começar com do dia seguinte.
-//                    pegar do firebase da agenda do mes do dia seguinte
-//                        pegar
-//                        se for tudo null -> dia livre. parar loop
-//                        se nao, iterar pelos horarios do dia. se algum horario for null, temos um horario livre. retorna waiting days
-//                    se não tiver horario livre, incrementa waiting days e pegar dia seguinte.
-//                    verificar se dia seguinte esta no mesmo mes
-//                    se nao baixar proximo mes e começar de novo
-//         5 - Ordenar como desejado pelo cliente. o padrao é por nome
-
-
     }
 
     private void startFirebaseDBAndRef() {

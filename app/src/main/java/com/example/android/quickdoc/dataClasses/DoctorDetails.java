@@ -1,6 +1,8 @@
 package com.example.android.quickdoc.dataClasses;
 
-public class DoctorDetails {
+import java.io.Serializable;
+
+public class DoctorDetails implements Serializable{
 
     //data used for quick search
     private String name;

@@ -1,6 +1,7 @@
 package com.example.android.quickdoc.dataClasses;
 
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /** This Class has all the Doctor's details, but has information specific to the user
@@ -13,7 +14,7 @@ import java.util.Comparator;
  * DistanceComparator -> sort the closer doctors first
  */
 
-public class DoctorDetailsToUser extends DoctorDetails {
+public class DoctorDetailsToUser extends DoctorDetails implements Serializable {
 
     private float distanceToDoctor;
 
@@ -22,7 +23,6 @@ public class DoctorDetailsToUser extends DoctorDetails {
     private int doctorId;
 
     //constructor calling super
-
     public DoctorDetailsToUser(DoctorDetails doctorDetails) {
         super(doctorDetails.getName(), doctorDetails.getAvaregeReviews(), doctorDetails.getReviewsCount(), doctorDetails.getAddressLat(), doctorDetails.getAddressLng(), doctorDetails.getAddressExtended(), doctorDetails.getPhoneNumber(), doctorDetails.getPresentationEn(), doctorDetails.getPresentationPt(), doctorDetails.isAcceptsAmil(), doctorDetails.isAcceptsBradescoSaude(), doctorDetails.isAcceptsHapVida(), doctorDetails.isAcceptsPreventSenior(), doctorDetails.isAcceptsSulamerica(), doctorDetails.isAcceptsUnimed());
     }

@@ -11,4 +11,21 @@
     <string name="days">dias</string>
     <string name="user_not_logged_in">Usuario nao esta logado</string>
     <string name="fail_to_connect">Falha ao conectar com o servidor. Por favor verifique sua conexão de internet.</string>
+    <string name="doctor_presentation">Apresentação</string>
+    <string name="accepted_health_care">Planos de Saúde aceitos</string>
+    <string name="address">Endereço</string>
+    <string name="office">Consultório</string>
+    <string name="schedule_appoiontment">Agendar consulta com médico</string>
+    <string name="distance">Distância</string>
+    <string name="cardiologist">Cardiologista</string>
+    <string name="dermatologist">Dermatologista</string>
+    <string name="geriatric">Geriatra</string>
+    <string name="gynecologist">Ginecologista</string>
+    <string name="nephrologist">Nefrologista</string>
+    <string name="orthopaedist">Ortopedista</string>
+    <string name="ophthalmologist">Oftalmologista</string>
+    <string name="oncologist">Oncologista</string>
+    <string name="pediatrician">Pediatra</string>
+    <string name="psychiatrist">Psiquiatra</string>
+    <string name="urologist">Urologista</string>
 </resources>

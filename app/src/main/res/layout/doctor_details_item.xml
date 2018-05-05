@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.constraint.ConstraintLayout
+    android:id="@+id/constr_layo_doc_det_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +9,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="32dp"
     android:layout_marginStart="32dp"
-    android:layout_marginEnd="32dp"    >
+    android:layout_marginEnd="32dp" >
 
     <ImageView
         android:id="@+id/doctor_photo"
@@ -16,7 +17,8 @@
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/doctor_small_default" />
+        app:srcCompat="@drawable/doctor_small_default"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/doctor_name"
