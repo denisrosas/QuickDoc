@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.example.android.quickdoc.adapters.AvailableDoctorsListAdapter;
 import com.example.android.quickdoc.dataClasses.DoctorDetails;
 import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
+import com.example.android.quickdoc.dataClasses.SpecialtyKeys;
+import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -20,8 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -70,77 +70,17 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         //get selected specialty from Intent
         int selectedSpecialty = getIntent().getIntExtra(SELECTED_DOCTOR_SPECIALTY, -1);
 
-        //Get Specialty name and key from Database
-        attachSpecDBReadListener(selectedSpecialty);
+        SpecialtyKeys specialtyKeys = new SpecialtyKeys();
+        attachDoctorsDBReadListener(specialtyKeys.getKeysByPosition(selectedSpecialty));
+
+        SpecialtyNames specialtyNames = new SpecialtyNames(this);
+        textViewSpecialty.setText(specialtyNames.getSpecialtyList().get(selectedSpecialty));
 
     }
 
     private void startFirebaseDBAndRef() {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES);
-    }
-
-    private void attachSpecDBReadListener(final int selectedSpecialty) {
-        if(mSpecChildEventListener==null){
-            mSpecChildEventListener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    GenericTypeIndicator<Map<String, ArrayList<String>>> typeIndicator = new GenericTypeIndicator<Map<String, ArrayList<String>>>(){};
-                    ArrayList<String> doctorSpecList;
-                    String specialtyKey = ""; //to select child in DB
-                    String specialtyName = ""; //to be displayed in TextView
-
-                    Map<String, ArrayList<String>> hashMap = dataSnapshot.getValue(typeIndicator);
-
-                    if (hashMap != null) {
-                        for (Map.Entry<String, ArrayList<String>> child : hashMap.entrySet()) {
-
-                            doctorSpecList = child.getValue();
-
-                            if (dataSnapshot.getKey().matches("en")) {
-                                specialtyKey = doctorSpecList.get(selectedSpecialty).toLowerCase();
-                                specialtyName = doctorSpecList.get(selectedSpecialty);
-                            }
-
-                            if((dataSnapshot.getKey().matches("pt"))&&(Locale.getDefault().getLanguage().matches("pt"))) {
-                                specialtyName = doctorSpecList.get(selectedSpecialty);
-                            }
-
-                            Log.i("denis", "specialtyName: " +specialtyName+" specialtyKey: "+specialtyKey);
-
-                        }
-                    }
-
-                    if(!specialtyName.isEmpty())
-                        textViewSpecialty.setText(specialtyName);
-
-                    if(!specialtyKey.isEmpty())
-                        attachDoctorsDBReadListener(specialtyKey);
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-
-            mDocSpecialtiesDBReference.addChildEventListener(mSpecChildEventListener);
-        }
     }
 
     private void attachDoctorsDBReadListener(final String specialtyKey) {
@@ -203,7 +143,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
             doctorDetailsToUserList.get(i).setDistanceToDoctor((float)2.2);
 
             //TODO - calculate the quantity of waiting days
-            doctorDetailsToUserList.get(i).setWaitingDays(new Random().nextInt());
+            doctorDetailsToUserList.get(i).setWaitingDays(new Random().nextInt(60));
 
             doctorDetailsToUserList.get(i).setDoctorId(i);
 

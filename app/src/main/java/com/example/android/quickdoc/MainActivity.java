@@ -12,19 +12,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     //Firebase Database Variables
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDocSpecialtiesDBReference;
-    private ChildEventListener mChildEventListener;
+    private ChildEventListener mChildEventListener = null;
     private static final String FIREBASE_CHILD_SPECIALTIES = "specialties";
     private static final String SELECTED_DOCTOR_SPECIALTY = "SELECTED_DOCTOR_SPECIALTY";
 
@@ -42,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 1;
-
-    ArrayList<String> mListDoctorsSpeciality;
-    ArrayAdapter<String> arrayAdapter;
+    private String firebaseUID;
 
     @BindView(R.id.spinner_doctor_speciallity) Spinner spinner;
     @BindView(R.id.button_schedule_appointment) Button buttonScheduleAppointment;
@@ -59,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
         //Starting Butter Knife
         ButterKnife.bind(this);
 
-        //Starting Firebase Database Instance and Reference points to child
-        startFirebaseDBAndRef();
-
         //check if user is connected. If is, attach the ChildEventListener
         createFirebaseAuthListener();
 
@@ -70,19 +61,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void startFirebaseDBAndRef() {
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        if(Locale.getDefault().getLanguage().equals("pt"))
-            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES).child("pt");
-        else
-            mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES).child("en");
-    }
-
     /** Start the Firebase Database and set the OnClickListeners to the 3 buttons of MainActivity */
     private void startViewsAndButtons() {
 
-        //wait for Specialties list from firebase to allow pressign the button
-        buttonScheduleAppointment.setEnabled(false);
+        //Call activity to display the doctor's list
         buttonScheduleAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,6 +89,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //Start Doctor specialty listener
+        SpecialtyNames specialtyNames = new SpecialtyNames(this);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_doctor_speciality_item, specialtyNames.getSpecialtyList());
+        spinner.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -119,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==R.id.firebase_signout){
-            onSignedOutCleanup();
+            mFirebaseAuth.signOut();
         }
 
         return super.onOptionsItemSelected(item);
@@ -134,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null){
-                    attachDatabaseReadListener();
+                    firebaseUID = user.getUid();
                 }else {
-                    onSignedOutCleanup();
+                    //onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()
                             .createSignInIntentBuilder()
@@ -149,51 +136,14 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    /** onChildAdded will run on the moment the EventListener is added to the DataBaseReference
-     * it Will return the list of Doctor Specialties and show it in the spinner for selection */
-    private void attachDatabaseReadListener() {
-        if(mChildEventListener==null){
-            mChildEventListener = new ChildEventListener() {
-
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    GenericTypeIndicator<ArrayList<String>> typeIndicator = new GenericTypeIndicator<ArrayList<String>>(){};
-                    mListDoctorsSpeciality = dataSnapshot.getValue(typeIndicator);
-                    arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
-                            R.layout.spinner_doctor_speciality_item, mListDoctorsSpeciality);
-                    spinner.setAdapter(arrayAdapter);
-                    buttonScheduleAppointment.setEnabled(true);
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-            mDocSpecialtiesDBReference.addChildEventListener(mChildEventListener);
-        }
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
-    private void detachDatabaseReadListener(){
-        if(mChildEventListener!=null){
-            mDocSpecialtiesDBReference.removeEventListener(mChildEventListener);
-            mChildEventListener=null;
-        }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -201,12 +151,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         if(mFirebaseAuth!=null)
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-
-        if(arrayAdapter!=null) {
-            arrayAdapter.clear();
-            arrayAdapter.notifyDataSetChanged();
-        }
-        detachDatabaseReadListener();
     }
 
     @Override
@@ -215,15 +159,5 @@ public class MainActivity extends AppCompatActivity {
         if(mFirebaseAuth!=null)
             mFirebaseAuth.addAuthStateListener(mAuthStateListener);
 
-        attachDatabaseReadListener();
-    }
-
-    private void onSignedOutCleanup() {
-        if(arrayAdapter!=null) {
-            arrayAdapter.clear();
-            arrayAdapter.notifyDataSetChanged();
-        }
-        detachDatabaseReadListener();
-        mFirebaseAuth.signOut();
     }
 }

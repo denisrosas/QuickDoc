@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
-import com.example.android.quickdoc.dataClasses.SpecialtyName;
+import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -100,7 +100,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     private void setTextViews(DoctorDetailsToUser doctorDetailsToUser, String specialtyKey) {
 
         textViewDocName.setText(doctorDetailsToUser.getName());
-        textViewSpecialty.setText(SpecialtyName.getSpecialtyName(this, specialtyKey));
+        textViewSpecialty.setText(SpecialtyNames.getSpecialtyName(this, specialtyKey));
 
 
         textViewAvrgReviews.setText(Float.toString(doctorDetailsToUser.getAvaregeReviews()));

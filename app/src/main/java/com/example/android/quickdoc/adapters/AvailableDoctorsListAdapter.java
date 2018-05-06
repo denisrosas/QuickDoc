@@ -103,6 +103,7 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
+                    Picasso.get().load(R.drawable.doctor_small_default).transform(new CropCircleTransformation()).into(smallPhotoView);
                     Log.i("denis", "Fail to load image");
                 }
             });
