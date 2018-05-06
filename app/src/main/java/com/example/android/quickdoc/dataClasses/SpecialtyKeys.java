@@ -13,10 +13,10 @@ public class SpecialtyKeys {
     public SpecialtyKeys() {
         keysList = new ArrayList<>();
         keysList.add("cardiologist");
-        keysList.add("cermatologist");
-        keysList.add("ceriatric");
-        keysList.add("cynecologist");
-        keysList.add("cephrologist");
+        keysList.add("dermatologist");
+        keysList.add("geriatric");
+        keysList.add("gynecologist");
+        keysList.add("nephrologist");
         keysList.add("orthopaedist");
         keysList.add("ophthalmologist");
         keysList.add("oncologist");

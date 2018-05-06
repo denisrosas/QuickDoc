@@ -27,9 +27,9 @@ import butterknife.ButterKnife;
 public class DoctorDetailsActivity extends AppCompatActivity {
 
     private static final String DOCTOR_DETAILS = "DOCTOR_DETAILS";
+    private static final String DOCTOR_ID = "DOCTOR_ID";
     private static final String SPECIALTY_KEY = "SPECIALTY_KEY";
     private static final String PHOTOS_FOLDER = "photos";
-    private static final String SPECIALTY_FOLDER = "specialty";
     private static final String BIG_PHOTO_FILENAME_PREFIX = "doctor_big";
     private static final String PHOTO_EXTENSION = ".jpg";
 
@@ -168,8 +168,8 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         buttonScheduleAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SelectAppDateTimeActivity.class);
-                intent.putExtra(DOCTOR_DETAILS, doctorDetailsToUser);
+                Intent intent = new Intent(getApplicationContext(), SelectDateTimeActivity.class);
+                intent.putExtra(DOCTOR_ID, doctorDetailsToUser.getDoctorId());
                 intent.putExtra(SPECIALTY_KEY, specialtyKey);
                 startActivity(intent);
             }
