@@ -9,7 +9,7 @@
     <string name="unknown">Desconhecido</string>
     <string name="km">Km</string>
     <string name="days">dias</string>
-    <string name="user_not_logged_in">Usuario nao esta logado</string>
+    <string name="user_not_logged_in">Usuário não esta logado</string>
     <string name="fail_to_connect">Falha ao conectar com o servidor. Por favor verifique sua conexão de internet.</string>
     <string name="doctor_presentation">Apresentação</string>
     <string name="accepted_health_care">Planos de Saúde aceitos</string>
@@ -40,4 +40,8 @@
     <string name="october">Outubro</string>
     <string name="november">Novembro</string>
     <string name="december">Dezembro</string>
+    <string name="select_one_of_the_available_horary">Selecione um dos horários disponíveis</string>
+    <string name="confirm_appointment_dialog">Confirmar consulta com Dr(a).</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>

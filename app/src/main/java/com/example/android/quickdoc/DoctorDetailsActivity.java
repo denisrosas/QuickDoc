@@ -169,7 +169,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SelectDateTimeActivity.class);
-                intent.putExtra(DOCTOR_ID, doctorDetailsToUser.getDoctorId());
+                intent.putExtra(DOCTOR_DETAILS, doctorDetailsToUser);
                 intent.putExtra(SPECIALTY_KEY, specialtyKey);
                 startActivity(intent);
             }
