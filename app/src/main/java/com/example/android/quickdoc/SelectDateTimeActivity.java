@@ -19,6 +19,7 @@ import com.example.android.quickdoc.dataClasses.AppointmentTime;
 import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
 import com.example.android.quickdoc.dataClasses.Months;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
+import com.example.android.quickdoc.dataClasses.UserAppointment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -47,6 +47,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private DatabaseReference mDocDayScheduleDBReference;
     private ValueEventListener valueEventListener;
     private static final String FIREBASE_CHILD_AGENDA = "agenda";
+    private static final String FIREBASE_CHILD_USER_APPOINT = "user_appointments";
     private Map.Entry<String, ArrayList<String>> firebaseChildMapEntry;
 
     private static final String DOCTOR_DETAILS = "DOCTOR_DETAILS";
@@ -320,6 +321,17 @@ public class SelectDateTimeActivity extends AppCompatActivity {
 
         //save new daily schedule to database with one new appointment
         mDocDayScheduleDBReference.push().setValue(docDayNewSchedule);
+
+        //
+        mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
+                .child(firebaseUID);
+
+        int appDoctorId = Integer.parseInt(doctorId.substring(doctorId.length()-1));
+
+        UserAppointment userAppointment = new UserAppointment(convertCalendarToString(currentDate),
+                selectedHorary, specialtyKey, appDoctorId);
+
+        mDocDayScheduleDBReference.push().setValue(userAppointment);
     }
 
     private void addAppointmentOnDatabase(int selectedHorary) {
@@ -337,14 +349,22 @@ public class SelectDateTimeActivity extends AppCompatActivity {
 
         //set the position of the horary to the userID
         docDayNewSchedule.set(selectedHorary, firebaseUID);
-        firebaseChildMapEntry.setValue(docDayNewSchedule);
 
-        //Map<String, ArrayList<String>> hashMap = new HashMap<>();
-        Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put(firebaseChildMapEntry.getKey(), firebaseChildMapEntry.getValue());
+        //remove the previopus arraylist (because I just couldnt update it)
+        mDocDayScheduleDBReference.removeValue();
+        //push the new arraylist
+        mDocDayScheduleDBReference.push().setValue(docDayNewSchedule);
 
-        //mDocDayScheduleDBReference.push().setValue(hashMap);
-        mDocDayScheduleDBReference.push().updateChildren(hashMap);
+        //
+        mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
+                .child(firebaseUID);
+
+        int appDoctorId = Integer.parseInt(doctorId.substring(doctorId.length()-1));
+
+        UserAppointment userAppointment = new UserAppointment(convertCalendarToString(currentDate),
+                selectedHorary, specialtyKey, appDoctorId);
+
+        mDocDayScheduleDBReference.push().setValue(userAppointment);
     }
 
     /**This method returns an Arraylist of string of size APPOINTMENT_LIST_SIZE with all position as "" */
