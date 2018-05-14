@@ -1,0 +1,665 @@
+{
+  "agenda" : {
+    "cardiologist" : {
+      "doctor0" : {
+        "2018-05-07" : {
+          "-LC1tHmXs6iVLTonBDOK" : [ "29o8D16dZDRxaFj2EOIOXhx42Ci1", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "", "", "", "", "", "", "", "", "", "" ]
+        }
+      },
+      "doctor1" : {
+        "2018-05-07" : {
+          "-LByIn_9EO5dH74IbqRK" : [ "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ]
+        }
+      }
+    },
+    "gynecologist" : {
+      "doctor0" : {
+        "2018-05-04" : {
+          "-LBSU0qSdYWb3ezDBC0g" : [ "", "", "", "", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "", "", "", "", "", "29o8D16dZDRxaFj2EOIOXhx42Ci1" ]
+        },
+        "2018-05-05" : {
+          "-LBSX9O_pB2DY0HEzJ36" : [ "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "", "", "", "", "", "", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "", "", "", "29o8D16dZDRxaFj2EOIOXhx42Ci1" ]
+        },
+        "2018-05-06" : {
+          "-LBSXPOplS3SHfLjHEWw" : [ "", "", "", "", "", "", "", "", "", "", "", "", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "" ]
+        }
+      }
+    }
+  },
+  "doctors" : {
+    "cardiologist" : {
+      "-LBSI3YdUJYieMGgXpwh" : [ {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLat" : -3.103913,
+        "addressLng" : -59.998802,
+        "avaregeReviews" : 4.4,
+        "name" : "Antonio Almeida",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLat" : -3.103913,
+        "addressLng" : -59.998802,
+        "avaregeReviews" : 4.4,
+        "name" : "Antonio Almeida",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLat" : -3.103913,
+        "addressLng" : -59.998802,
+        "avaregeReviews" : 4.4,
+        "name" : "Patrícia Cordeiro",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLat" : -3.103913,
+        "addressLng" : -59.998802,
+        "avaregeReviews" : 4.4,
+        "name" : "Antonio Almeida",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      } ]
+    },
+    "dermatologist" : {
+      "-LBSJq3ITWbb9qUR97o2" : [ {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Luciana de Almeida",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Bruno Tavares",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Mariana de Jesus",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "João Antonio Silva",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Nelson Correa",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      } ]
+    },
+    "geriatric" : {
+      "-LBSNL1XfNq8-Q-58LuC" : [ {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Adriana de Almeida",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Alexandre Costa Pires",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Amanda de Lima Nagai",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Ana Clara Lorenzo",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Felipe Ribeiro Assunção",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      } ]
+    },
+    "gynecologist" : {
+      "-LBSNniZkUxM8f_SB2M5" : [ {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Adriana de Almeida",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Alexandre Costa Pires",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Amanda de Lima Nagai",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Ana Clara Lorenzo",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Felipe Ribeiro Assunção",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      } ],
+      "-LBSNqUA1uCAW9jGdD9r" : [ {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Adriana de Almeida",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Alexandre Costa Pires",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Amanda de Lima Nagai",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Ana Clara Lorenzo",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      }, {
+        "acceptsAmil" : true,
+        "acceptsBradescoSaude" : true,
+        "acceptsHapVida" : true,
+        "acceptsPreventSenior" : false,
+        "acceptsSulamerica" : false,
+        "acceptsUnimed" : true,
+        "addressExtended" : "Rua da alegria",
+        "addressLocation" : {
+          "accuracy" : 0,
+          "altitude" : 0,
+          "bearing" : 0,
+          "complete" : false,
+          "elapsedRealtimeNanos" : 0,
+          "fromMockProvider" : false,
+          "latitude" : -3.103913,
+          "longitude" : -59.998802,
+          "provider" : "gps",
+          "speed" : 0,
+          "time" : 0
+        },
+        "avaregeReviews" : 4.400000095367432,
+        "name" : "Felipe Ribeiro Assunção",
+        "phoneNumber" : "11-2233-4455",
+        "presentationEn" : "I am too good",
+        "presentationPt" : "Sou bao demais",
+        "reviewsCount" : 10
+      } ]
+    }
+  },
+  "specialties" : {
+    "en" : {
+      "-LBRmVv73_8intII8MtS" : [ "Cardiologist", "Dermatologist", "Geriatric", "Gynecologist", "Nephrologist", "Orthopaedist", "Ophthalmologist", "Oncologist", "Pediatrician", "Psychiatrist", "Urologist" ]
+    }
+  },
+  "user_appointments" : {
+    "29o8D16dZDRxaFj2EOIOXhx42Ci1" : {
+      "-LC1tHmmgLf3lgIGq8Zd" : {
+        "date" : "2018-05-07",
+        "doctorId" : 0,
+        "reviewed" : false,
+        "specialty" : "cardiologist",
+        "time" : 3,
+        "wontReview" : false
+      }
+    }
+  }
+}
