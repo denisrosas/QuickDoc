@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /** Start the Firebase Database and set the OnClickListeners to the 3 buttons of MainActivity */
+    /** set the OnClickListeners to the 3 buttons of MainActivity */
     private void startViewsAndButtons() {
 
         //Call activity to display the doctor's list
@@ -134,16 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override

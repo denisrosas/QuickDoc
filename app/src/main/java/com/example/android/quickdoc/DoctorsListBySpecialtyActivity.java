@@ -33,7 +33,6 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
 
     //Reference and Event Listener of the specialties DB tree
-    private DatabaseReference mDocSpecialtiesDBReference;
     private ChildEventListener mSpecChildEventListener;
     private static final String FIREBASE_CHILD_SPECIALTIES = "specialties";
 
@@ -62,25 +61,21 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //Starting Firebase Database Instance and Reference points to child
-        startFirebaseDBAndRef();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
 
         //check if user is logged.
         createFirebaseAuthListener();
 
         //get selected specialty from Intent
-        int selectedSpecialty = getIntent().getIntExtra(SELECTED_DOCTOR_SPECIALTY, -1);
-
+        int selectedSpecialtyId = getIntent().getIntExtra(SELECTED_DOCTOR_SPECIALTY, -1);
         SpecialtyKeys specialtyKeys = new SpecialtyKeys();
-        attachDoctorsDBReadListener(specialtyKeys.getKeysByPosition(selectedSpecialty));
+
+
+        attachDoctorsDBReadListener(specialtyKeys.getKeysByPosition(selectedSpecialtyId));
 
         SpecialtyNames specialtyNames = new SpecialtyNames(this);
-        textViewSpecialty.setText(specialtyNames.getSpecialtyList().get(selectedSpecialty));
+        textViewSpecialty.setText(specialtyNames.getSpecialtyList().get(selectedSpecialtyId));
 
-    }
-
-    private void startFirebaseDBAndRef() {
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDocSpecialtiesDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_SPECIALTIES);
     }
 
     private void attachDoctorsDBReadListener(final String specialtyKey) {
@@ -97,7 +92,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
                     ArrayList<DoctorDetails> doctorDetailsList = dataSnapshot.getValue(typeIndicator);
 
                     if (doctorDetailsList != null) {
-                        fillTheRecyclerView(doctorDetailsList, specialtyKey);
+                        fillRecyclerView(doctorDetailsList, specialtyKey);
                     } else {
                         Toast.makeText(getApplicationContext(), getString(R.string.fail_to_connect), Toast.LENGTH_LONG).show();
                     }
@@ -125,10 +120,9 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
             };
             mDoctorsDBReference.addChildEventListener(mDoctorsChildEventList);
         }
-
     }
 
-    private void fillTheRecyclerView(ArrayList<DoctorDetails> doctorDetailsList, String specialtyKey) {
+    private void fillRecyclerView(ArrayList<DoctorDetails> doctorDetailsList, String specialtyKey) {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -165,6 +159,9 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         }
     }
 
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDoctorsDBReference.removeEventListener(mDoctorsChildEventList);
+    }
 }

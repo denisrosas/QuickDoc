@@ -95,7 +95,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         //start Firebase Database and attach event listener
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         String date = convertCalendarToString(currentDate);
-        firebaseAttachChildEventList(date);
+        firebaseAttachValueEventList(date);
 
         setOnClickListeners();
     }
@@ -134,7 +134,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                     radioGroup.removeAllViews();
 
                     //attach a child value event listener for the new date
-                    firebaseAttachChildEventList(convertCalendarToString(currentDate));
+                    firebaseAttachValueEventList(convertCalendarToString(currentDate));
                 }
             }
         });
@@ -164,7 +164,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                     radioGroup.removeAllViews();
 
                     //attach a child value event listener for the new date
-                    firebaseAttachChildEventList(convertCalendarToString(currentDate));
+                    firebaseAttachValueEventList(convertCalendarToString(currentDate));
                 }
             }
         });
@@ -190,7 +190,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     /*
 
      */
-    private void firebaseAttachChildEventList(String firebaseDate) {
+    private void firebaseAttachValueEventList(String firebaseDate) {
          mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
          .child(specialtyKey).child(doctorId).child(firebaseDate);
 
@@ -395,7 +395,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.VISIBLE);
-        firebaseAttachChildEventList(convertCalendarToString(currentDate));
+        firebaseAttachValueEventList(convertCalendarToString(currentDate));
     }
 
     //Save and restore the state of the RadioGroup
