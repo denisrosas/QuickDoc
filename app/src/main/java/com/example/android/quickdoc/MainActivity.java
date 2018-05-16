@@ -16,9 +16,6 @@ import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
@@ -28,17 +25,12 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     //Firebase Database Variables
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDocSpecialtiesDBReference;
-    private ChildEventListener mChildEventListener = null;
-    private static final String FIREBASE_CHILD_SPECIALTIES = "specialties";
     private static final String SELECTED_DOCTOR_SPECIALTY = "SELECTED_DOCTOR_SPECIALTY";
 
     //Firebase Authentication Variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 1;
-    private String firebaseUID;
 
     @BindView(R.id.spinner_doctor_speciallity) Spinner spinner;
     @BindView(R.id.button_schedule_appointment) Button buttonScheduleAppointment;
@@ -121,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null){
-                    firebaseUID = user.getUid();
+                    //user is logged!
                 }else {
                     //onSignedOutCleanup();
                     startActivityForResult(

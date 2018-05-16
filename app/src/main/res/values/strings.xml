@@ -46,4 +46,6 @@
     <string name="no">No</string>
     <string name="alert_prev_day_of_tomorrow">Cannot schedule a Doctor\'s appointment before tomorrow</string>
     <string name="alert_next_day_too_far">Cannot schedule a Doctor\'s appointment for more than 90 days ahead</string>
+    <string name="on">on</string>
+    <string name="at"> at </string>
 </resources>

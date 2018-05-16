@@ -6,9 +6,9 @@ package com.example.android.quickdoc.dataClasses;
 
 public class AppointmentTime {
 
-    public static String getTimeFromIndex(int monthId){
+    public static String getTimeFromIndex(int horaryId){
 
-        switch (monthId){
+        switch (horaryId){
             case 0:
                 return "8:00";
 

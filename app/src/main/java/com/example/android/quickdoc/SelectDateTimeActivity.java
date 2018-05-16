@@ -25,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -44,7 +43,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
 
     //Reference and Event Listener of the specialties DB tree
-    private DatabaseReference mDocDayScheduleDBReference;
+    private DatabaseReference mDatabaseReference;
     private ValueEventListener valueEventListener;
     private static final String FIREBASE_CHILD_AGENDA = "agenda";
     private static final String FIREBASE_CHILD_USER_APPOINT = "user_appointments";
@@ -59,7 +58,6 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     String specialtyKey;
     DoctorDetailsToUser doctorDetailsToUser;
     String doctorId;
-    boolean noAppointmentsOnDay;
     String firebaseUID;
 
     @BindView(R.id.radioGroup) RadioGroup radioGroup;
@@ -128,7 +126,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                     setDayMonthTextViews();
 
                     if(valueEventListener!=null)
-                        mDocDayScheduleDBReference.removeEventListener(valueEventListener);
+                        mDatabaseReference.removeEventListener(valueEventListener);
 
                     //remove all radio Buttons
                     radioGroup.removeAllViews();
@@ -158,7 +156,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                     setDayMonthTextViews();
 
                     if(valueEventListener!=null)
-                        mDocDayScheduleDBReference.removeEventListener(valueEventListener);
+                        mDatabaseReference.removeEventListener(valueEventListener);
 
                     //remove all radio Buttons
                     radioGroup.removeAllViews();
@@ -191,50 +189,34 @@ public class SelectDateTimeActivity extends AppCompatActivity {
 
      */
     private void firebaseAttachValueEventList(String firebaseDate) {
-         mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
+         mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
          .child(specialtyKey).child(doctorId).child(firebaseDate);
 
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<Map<String, ArrayList<String>>> typeIndicator = new GenericTypeIndicator<Map<String, ArrayList<String>>>(){};
-                ArrayList<String> docDayScheduleChild;
+                //create boolean vector representing the available appointments of the day
+                boolean[] availableAppointments = new boolean[APPOINTMENT_LIST_SIZE];
 
                 if(dataSnapshot.exists()){
-                    Map<String, ArrayList<String>> hashMap = dataSnapshot.getValue(typeIndicator);
 
-                    if (hashMap != null) {
-                        for(Map.Entry<String, ArrayList<String>> mapEntry : hashMap.entrySet()){
-
-                            //store daily schedule and it's key in global variables
-                            firebaseChildMapEntry = mapEntry;
-                            docDayScheduleChild = mapEntry.getValue();
-
-                            noAppointmentsOnDay=true;
-
-                            //create boolean vector and set all to available appointments to true
-                            boolean[] availableAppointments = new boolean[APPOINTMENT_LIST_SIZE];
-                            for(int index = 0; index< docDayScheduleChild.size(); index++){
-                                availableAppointments[index] = docDayScheduleChild.get(index).equals("");
-                                noAppointmentsOnDay=false;
-                            }
-
-                            //call method to display all available times in RadioGroup
-                            updateDateMonthAppList(availableAppointments);
-                        }
+                    for(int index = 0; index< APPOINTMENT_LIST_SIZE; index++){
+                        //if the child exists, means that the horary is reserved. If not, set position to true
+                        availableAppointments[index] = !dataSnapshot.child("" + index).exists();
                     }
+
                 } else{
                     //if it's not found in Database, than all times are available. Set all to true
                     Log.i("denis", "No appointments on this day!");
-                    noAppointmentsOnDay=true;
 
-                    //create boolean vector and set all appointments to true
-                    boolean[] availableAppointments = new boolean[APPOINTMENT_LIST_SIZE];
-                    for(int index = 0; index<APPOINTMENT_LIST_SIZE; index++){  availableAppointments[index] = true;  }
-
-                    //call method to display all available times in RadioGroup
-                    updateDateMonthAppList(availableAppointments);
+                    //day schedule is free. Set all horaries to true (available)
+                    for(int index = 0; index<APPOINTMENT_LIST_SIZE; index++){
+                        availableAppointments[index] = true;
+                    }
                 }
+
+                //call method to display all available times in RadioGroup
+                updateDateMonthAppList(availableAppointments);
             }
 
             @Override
@@ -243,7 +225,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
             }
         };
 
-        mDocDayScheduleDBReference.addValueEventListener(valueEventListener);
+        mDatabaseReference.addValueEventListener(valueEventListener);
     }
 
     /* Creates a list of Radio Buttons. One Radio button for every available schedule
@@ -276,24 +258,19 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private void showConfirmationDialog(final int selectedHorary) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setMessage(getConfirmationMessage())
+        builder.setMessage(getConfirmationMessage(selectedHorary))
                 .setPositiveButton(getString(R.string.yes),  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        //Store the new appointment in the Database
-                        if(noAppointmentsOnDay){
-                            addNewAppointmentArray(selectedHorary);
-                        } else{
-                            addAppointmentOnDatabase(selectedHorary);
-                            Log.i("denis", "selectedHorary: "+selectedHorary);
-                        }
+                    addAppointmentOnDatabase(selectedHorary);
+                    Log.i("denis", "selectedHorary: "+selectedHorary);
 
-                        //Call MainActivity
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //Call MainActivity - Clear all Activity stack
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                        startActivity(intent);
+                    startActivity(intent);
                     }
                 })
                 .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -305,89 +282,56 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void addNewAppointmentArray(int selectedHorary) {
-
-        //remove the event listener
-        if((mDocDayScheduleDBReference!=null)&&(valueEventListener!=null))
-            mDocDayScheduleDBReference.removeEventListener(valueEventListener);
-
-        //set the new reference to point at. Example: agenda/cardiologist/doctor0/2018-05-06
-        mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
-                .child(specialtyKey).child(doctorId).child(convertCalendarToString(currentDate));
-
-        //create new array and put the UID in the selected horary
-        ArrayList<String> docDayNewSchedule = createArrayListEmptyPositions();
-        docDayNewSchedule.set(selectedHorary, firebaseUID);
-
-        //save new daily schedule to database with one new appointment
-        mDocDayScheduleDBReference.push().setValue(docDayNewSchedule);
-
-        //
-        mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
-                .child(firebaseUID);
-
-        int appDoctorId = Integer.parseInt(doctorId.substring(doctorId.length()-1));
-
-        UserAppointment userAppointment = new UserAppointment(convertCalendarToString(currentDate),
-                selectedHorary, specialtyKey, appDoctorId);
-
-        mDocDayScheduleDBReference.push().setValue(userAppointment);
-    }
-
     private void addAppointmentOnDatabase(int selectedHorary) {
 
         //remove the event listener
-        if((mDocDayScheduleDBReference!=null)&&(valueEventListener!=null))
-        mDocDayScheduleDBReference.removeEventListener(valueEventListener);
+        if((mDatabaseReference !=null)&&(valueEventListener!=null))
+        mDatabaseReference.removeEventListener(valueEventListener);
+
+        //First step is to remove
 
         //example path agenda/cardiologist/doctor0/2018-05-06
-        mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
-                .child(specialtyKey).child(doctorId).child(convertCalendarToString(currentDate));
+        mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
+                .child(specialtyKey).child(doctorId).child(convertCalendarToString(currentDate)).child(""+selectedHorary);
 
-        //get and update Daily Schedule before push to database
-        ArrayList<String> docDayNewSchedule = firebaseChildMapEntry.getValue();
-
-        //set the position of the horary to the userID
-        docDayNewSchedule.set(selectedHorary, firebaseUID);
-
-        //remove the previopus arraylist (because I just couldnt update it)
-        mDocDayScheduleDBReference.removeValue();
-        //push the new arraylist
-        mDocDayScheduleDBReference.push().setValue(docDayNewSchedule);
+        mDatabaseReference.setValue(firebaseUID);
 
         //
-        mDocDayScheduleDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
+        mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
                 .child(firebaseUID);
 
+        //getting last character of doctorId (Ex: "doctor2") and transform to int
         int appDoctorId = Integer.parseInt(doctorId.substring(doctorId.length()-1));
 
         UserAppointment userAppointment = new UserAppointment(convertCalendarToString(currentDate),
                 selectedHorary, specialtyKey, appDoctorId);
 
-        mDocDayScheduleDBReference.push().setValue(userAppointment);
+        mDatabaseReference.push().setValue(userAppointment);
     }
 
-    /**This method returns an Arraylist of string of size APPOINTMENT_LIST_SIZE with all position as "" */
-    private ArrayList<String> createArrayListEmptyPositions() {
-        ArrayList<String> arrayList = new ArrayList<>();
-
-        for(int i=0; i< APPOINTMENT_LIST_SIZE; i++){
-            arrayList.add("");
+    private String getConfirmationMessage(int horary) {
+        String date;
+        if(Locale.getDefault().getLanguage().matches("pt")){
+            String[] dateVector = convertCalendarToString(currentDate).split("-");
+            String year = dateVector[0];
+            String month = dateVector[1];
+            String day = dateVector[2];
+            date = day+"/"+month+"/"+year;
+        } else{
+            date = convertCalendarToString(currentDate).replace("-", "/");
         }
 
-        return arrayList;
-    }
-
-    private String getConfirmationMessage() {
         return getString(R.string.confirm_appointment_dialog)+" "+doctorDetailsToUser.getName()+" - "+
-           SpecialtyNames.getSpecialtyName(this, specialtyKey);
+           SpecialtyNames.getSpecialtyName(this, specialtyKey)+" "+
+                getString(R.string.on)+" "+date +getString(R.string.at)+" "+
+                AppointmentTime.getTimeFromIndex(horary) ;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mDocDayScheduleDBReference.removeEventListener(valueEventListener);
-        mDocDayScheduleDBReference = null;
+        mDatabaseReference.removeEventListener(valueEventListener);
+        mDatabaseReference = null;
         valueEventListener = null;
     }
 

@@ -44,4 +44,6 @@
     <string name="confirm_appointment_dialog">Confirmar consulta com Dr(a).</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="on"> no dia </string>
+    <string name="at"> às </string>
 </resources>
