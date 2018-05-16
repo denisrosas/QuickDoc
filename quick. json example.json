@@ -9,7 +9,13 @@
       "doctor1" : {
         "2018-05-07" : {
           "-LByIn_9EO5dH74IbqRK" : [ "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" ]
+        },
+        "2018-05-10" : {
+          "-LC75Xu9xZh3ijEaFj79" : [ "", "", "", "", "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "", "", "", "", "", "", "", "", "" ]
         }
+      },
+      "doctor2" : {
+        "2018-05-15" : [ "29o8D16dZDRxaFj2EOIOXhx42Ci1", "", "", "Denis", "", "", "", "", "", "", "", "", "", "", "", "" ]
       }
     },
     "gynecologist" : {
@@ -652,14 +658,12 @@
   },
   "user_appointments" : {
     "29o8D16dZDRxaFj2EOIOXhx42Ci1" : {
-      "-LC1tHmmgLf3lgIGq8Zd" : {
-        "date" : "2018-05-07",
-        "doctorId" : 0,
-        "reviewed" : false,
-        "specialty" : "cardiologist",
-        "time" : 3,
-        "wontReview" : false
-      }
+      "date" : "2018-05-15",
+      "doctorId" : 2,
+      "reviewed" : false,
+      "specialty" : "cardiologist",
+      "time" : 0,
+      "wontReview" : false
     }
   }
 }
