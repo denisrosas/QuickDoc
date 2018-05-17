@@ -2,20 +2,24 @@ package com.example.android.quickdoc;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.android.quickdoc.adapters.NextAppointMentsListAdapter;
 import com.example.android.quickdoc.dataClasses.UserAppointment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Map;
+import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ShowNextAppointmentsActivity extends AppCompatActivity {
@@ -28,13 +32,18 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
     private ValueEventListener mUserAppointValEvList;
     private static final String FIREBASE_CHILD_USER_APP = "user_appointments";
 
+    @BindView(R.id.rv_user_appointments) RecyclerView recyclerView;
+    @BindView(R.id.progress_bar) ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_users_appointments);
+        setContentView(R.layout.activity_show_next_appointments);
 
         //Starting ButterKnife
         ButterKnife.bind(this);
+
+        progressBar.setVisibility(View.VISIBLE);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -42,40 +51,38 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
         String firebaseUID = getFirebaseUID(firebaseAuth);
 
         attachValueEventListener(firebaseUID);
-
-
     }
 
     private void attachValueEventListener(String firebaseUID) {
 
         mUserAppDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APP).child(firebaseUID);
 
+
         mUserAppointValEvList = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<Map<String, UserAppointment>> typeIndicator = new GenericTypeIndicator<>();
-                Map<String, UserAppointment> hashMap = dataSnapshot.getValue(typeIndicator);
-                int loop = 0;
+                ArrayList<UserAppointment> userAppointments = new ArrayList<>();
 
-                if (hashMap != null) {
-                    for (Map.Entry<String, UserAppointment> mapEntry : hashMap.entrySet()) {
-
-                        UserAppointment userAppointment = mapEntry.getValue();
-
-                            Log.i("denis", "Loop: "+loop);
-                            Log.i("denis", "doctorId: "+userAppointment.getDoctorId());
-                            Log.i("denis", "Time: "+userAppointment.getTime());
-                            Log.i("denis", "Date: "+userAppointment.getDate());
-                            Log.i("denis", "\n\n");
-                            loop++;
-
-                    }
+                for(DataSnapshot childSnapshot : dataSnapshot.getChildren()){
+                    UserAppointment userAppointment = childSnapshot.getValue(UserAppointment.class);
+                    userAppointments.add(userAppointment);
                 }
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setHasFixedSize(true);
+                NextAppointMentsListAdapter adapter = new NextAppointMentsListAdapter(userAppointments, getApplicationContext());
+
+                recyclerView.setAdapter(adapter);
+
+                progressBar.setVisibility(View.INVISIBLE);
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.no_appointments_for_this_user), Toast.LENGTH_LONG).show();
             }
         };
 
@@ -93,4 +100,11 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
             return firebaseAuth.getCurrentUser().getUid();
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mUserAppDBReference.removeEventListener(mUserAppointValEvList);
+    }
+
 }

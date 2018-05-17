@@ -1,10 +1,12 @@
 package com.example.android.quickdoc.dataClasses;
 
+import java.io.Serializable;
+
 /**
  * Created by Denis on 01/05/2018.
  */
 
-public class UserAppointment {
+public class UserAppointment implements Serializable {
 
     private String date;
     private int time;
@@ -13,13 +15,16 @@ public class UserAppointment {
     private boolean reviewed;
     private boolean wontReview;
 
-    public UserAppointment(String date, int time, String specialty, int doctorId) {
+    public UserAppointment(){}
+
+    public UserAppointment(String date, int time, String specialty, int doctorId,
+                           boolean reviewed, boolean wontReview) {
         this.date = date;
         this.time = time;
         this.specialty = specialty;
         this.doctorId = doctorId;
-        this.reviewed = false;
-        this.wontReview = false;
+        this.reviewed = reviewed;
+        this.wontReview = wontReview;
     }
 
 

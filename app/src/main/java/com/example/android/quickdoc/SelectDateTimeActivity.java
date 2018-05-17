@@ -304,7 +304,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         int appDoctorId = Integer.parseInt(doctorId.substring(doctorId.length()-1));
 
         UserAppointment userAppointment = new UserAppointment(convertCalendarToString(currentDate),
-                selectedHorary, specialtyKey, appDoctorId);
+                selectedHorary, specialtyKey, appDoctorId, false, false);
 
         mDatabaseReference.push().setValue(userAppointment);
     }

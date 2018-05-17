@@ -24,7 +24,8 @@
         <activity android:name=".ShowNextAppointmentsActivity" />
         <activity android:name=".ReviewPastAppointmentsActivity" />
         <activity android:name=".DoctorDetailsActivity" />
-        <activity android:name=".SelectDateTimeActivity"></activity>
+        <activity android:name=".SelectDateTimeActivity" />
+        <activity android:name=".AppointmentDetailsActivity"></activity>
     </application>
 
 </manifest>

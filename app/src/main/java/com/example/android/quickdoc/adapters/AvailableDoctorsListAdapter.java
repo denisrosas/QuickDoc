@@ -30,12 +30,6 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
     private ArrayList<DoctorDetailsToUser> doctorDetailsList;
     private String specialtyKey;
 
-    public AvailableDoctorsListAdapter(ArrayList<DoctorDetailsToUser> doctorDetailsList, String specialtyKey, Context context) {
-        this.doctorDetailsList = doctorDetailsList;
-        this.specialtyKey = specialtyKey;
-        this.context = context;
-    }
-
     private Context context;
     private static final String PHOTOS_FOLDER = "photos";
     private static final String SPECIALTY_FOLDER = "specialty";
@@ -44,6 +38,12 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
 
     private static final String DOCTOR_DETAILS = "DOCTOR_DETAILS";
     private static final String SPECIALTY_KEY = "SPECIALTY_KEY";
+
+    public AvailableDoctorsListAdapter(ArrayList<DoctorDetailsToUser> doctorDetailsList, String specialtyKey, Context context) {
+        this.doctorDetailsList = doctorDetailsList;
+        this.specialtyKey = specialtyKey;
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -127,7 +127,7 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
             super(itemView);
             constraintLayout = itemView.findViewById(R.id.constr_layo_doc_det_item);
             smallPhoto = itemView.findViewById(R.id.doctor_photo);
-            doctorName = itemView.findViewById(R.id.doctor_name);
+            doctorName = itemView.findViewById(R.id.tv_doctor_name);
             doctorReviews = itemView.findViewById(R.id.doctor_avg_reviews);
             doctorDistance = itemView.findViewById(R.id.doctor_distance);
             doctorWaitingDays = itemView.findViewById(R.id.waiting_days);
