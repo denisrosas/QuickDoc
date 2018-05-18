@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -69,16 +70,18 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<UserAppointment> userAppointments = new ArrayList<>();
+                ArrayList<String> childKeys = new ArrayList<>();
 
                 for(DataSnapshot childSnapshot : dataSnapshot.getChildren()){
                     UserAppointment userAppointment = childSnapshot.getValue(UserAppointment.class);
                     userAppointments.add(userAppointment);
+                    childKeys.add(childSnapshot.getKey());
                 }
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setHasFixedSize(true);
-                NextAppointMentsListAdapter adapter = new NextAppointMentsListAdapter(userAppointments, getApplicationContext());
+                NextAppointMentsListAdapter adapter = new NextAppointMentsListAdapter(userAppointments, childKeys, getApplicationContext());
 
                 recyclerView.setAdapter(adapter);
 
@@ -99,6 +102,7 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
     private String getTodayDate() {
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Log.i("denis", "Date format: "+dateFormat.format(date));
         return dateFormat.format(date);
     }
 

@@ -51,4 +51,5 @@
     <string name="see_your_next_appointments_below">See your next appointments below:</string>
     <string name="no_appointments_for_this_user">No appointments scheduled for this user</string>
     <string name="cancel_appoiontment">Cancel Appointment with Doctor</string>
+    <string name="dialog_message_confirm_cancel">Would you like to cancel this appointment?</string>
 </resources>

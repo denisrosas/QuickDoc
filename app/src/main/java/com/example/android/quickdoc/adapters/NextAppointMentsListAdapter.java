@@ -22,13 +22,15 @@ import java.util.Locale;
 public class NextAppointMentsListAdapter extends RecyclerView.Adapter<NextAppointMentsListAdapter.NextAppViewHolder>{
 
     private ArrayList<UserAppointment> userAppointmentsList;
+    private ArrayList<String> childKeys;
     private Context context;
 
     private static final String USER_APPOINTMENT = "USER_APPOINTMENT";
-    private static final String DOCTOR_NAME = "DOCTOR_NAME";
+    private static final String CHILD_KEY = "CHILD_KEY";
 
-    public NextAppointMentsListAdapter(ArrayList<UserAppointment> userAppointmentsList, Context context) {
+    public NextAppointMentsListAdapter(ArrayList<UserAppointment> userAppointmentsList, ArrayList<String> childKeys,Context context) {
         this.userAppointmentsList = userAppointmentsList;
+        this.childKeys = childKeys;
         this.context = context;
     }
 
@@ -47,6 +49,7 @@ public class NextAppointMentsListAdapter extends RecyclerView.Adapter<NextAppoin
             public void onClick(View view) {
                 Intent intent = new Intent(context, AppointmentDetailsActivity.class);
                 intent.putExtra(USER_APPOINTMENT,userAppointmentsList.get(holder.getAdapterPosition()));
+                intent.putExtra(CHILD_KEY, childKeys.get(holder.getAdapterPosition()));
                 context.startActivity(intent);
             }
         });

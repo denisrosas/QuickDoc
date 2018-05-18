@@ -19,7 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,7 +38,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
 
     //Reference and Event Listener of the doctors DB tree
     private DatabaseReference mDoctorsDBReference;
-    private ChildEventListener mDoctorsChildEventList;
+    private ValueEventListener mDoctorsValueEventList;
     private static final String FIREBASE_CHILD_DOCTORS = "doctors";
 
     private static final String SELECTED_DOCTOR_SPECIALTY = "SELECTED_DOCTOR_SPECIALTY";
@@ -83,43 +83,29 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         Log.i("denis", "specialtyKey: "+specialtyKey);
         mDoctorsDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_DOCTORS).child(specialtyKey);
 
-        if(mDoctorsChildEventList==null){
-            mDoctorsChildEventList = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        mDoctorsValueEventList = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<DoctorDetails> doctorDetailsList = new ArrayList<>();
 
-                    GenericTypeIndicator<ArrayList<DoctorDetails>> typeIndicator = new GenericTypeIndicator<ArrayList<DoctorDetails>>(){};
-                    ArrayList<DoctorDetails> doctorDetailsList = dataSnapshot.getValue(typeIndicator);
-
-                    if (doctorDetailsList != null) {
-                        fillRecyclerView(doctorDetailsList, specialtyKey);
-                    } else {
-                        Toast.makeText(getApplicationContext(), getString(R.string.fail_to_connect), Toast.LENGTH_LONG).show();
-                    }
+                for(DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                     doctorDetailsList.add(childSnapshot.getValue(DoctorDetails.class));
                 }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                if (doctorDetailsList.size()>0) {
+                    fillRecyclerView(doctorDetailsList, specialtyKey);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.fail_to_connect), Toast.LENGTH_LONG).show();
                 }
+            }
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
+            }
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            };
-            mDoctorsDBReference.addChildEventListener(mDoctorsChildEventList);
-        }
+        };
+        mDoctorsDBReference.addValueEventListener(mDoctorsValueEventList);
     }
 
     private void fillRecyclerView(ArrayList<DoctorDetails> doctorDetailsList, String specialtyKey) {
@@ -147,7 +133,6 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
 
         AvailableDoctorsListAdapter availableDoctorsListAdapter = new AvailableDoctorsListAdapter(doctorDetailsToUserList, specialtyKey, getApplicationContext());
 
-        // TODO (9) Set the GreenAdapter you created on mNumbersList
         recyclerView.setAdapter(availableDoctorsListAdapter);
     }
 
@@ -162,6 +147,6 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mDoctorsDBReference.removeEventListener(mDoctorsChildEventList);
+        mDoctorsDBReference.removeEventListener(mDoctorsValueEventList);
     }
 }
