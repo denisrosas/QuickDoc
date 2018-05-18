@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         buttonReviewDocttors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ReviewPastAppointmentsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ShowPastAppointList.class);
                 startActivity(intent);
             }
         });

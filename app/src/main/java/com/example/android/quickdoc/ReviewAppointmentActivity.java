@@ -3,11 +3,11 @@ package com.example.android.quickdoc;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ReviewPastAppointmentsActivity extends AppCompatActivity {
+public class ReviewAppointmentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_users_past_appointments);
+        setContentView(R.layout.activity_review_appointment);
     }
 }
