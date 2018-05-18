@@ -50,4 +50,5 @@
     <string name="alert_next_day_too_far">Não é possível agendar uma consulta a mais de 90 dias da data de hoje.</string>
     <string name="see_your_next_appointments_below">Veja suas próximas consultas médicas abaixo:</string>
     <string name="no_appointments_for_this_user">No appointments scheduled for this user</string>
+    <string name="cancel_appoiontment">Cancelar Consulta Médica</string>
 </resources>

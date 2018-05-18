@@ -13,11 +13,15 @@ import com.example.android.quickdoc.dataClasses.UserAppointment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +32,11 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
     FirebaseDatabase mFirebaseDatabase;
 
     //Reference and Event Listener of the doctors DB tree
-    private DatabaseReference mUserAppDBReference;
+    //private DatabaseReference mUserAppDBReference;
+    private Query firebaseQuery;
     private ValueEventListener mUserAppointValEvList;
     private static final String FIREBASE_CHILD_USER_APP = "user_appointments";
+    private static final String FIREBASE_CHILD_DATE = "date";
 
     @BindView(R.id.rv_user_appointments) RecyclerView recyclerView;
     @BindView(R.id.progress_bar) ProgressBar progressBar;
@@ -55,8 +61,9 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
 
     private void attachValueEventListener(String firebaseUID) {
 
-        mUserAppDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APP).child(firebaseUID);
-
+        //filter all appointments from today or after
+        firebaseQuery = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APP).
+                child(firebaseUID).orderByChild(FIREBASE_CHILD_DATE).startAt(getTodayDate());
 
         mUserAppointValEvList = new ValueEventListener() {
             @Override
@@ -86,7 +93,13 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
             }
         };
 
-        mUserAppDBReference.addValueEventListener(mUserAppointValEvList);
+        firebaseQuery.addValueEventListener(mUserAppointValEvList);
+    }
+
+    private String getTodayDate() {
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        return dateFormat.format(date);
     }
 
 
@@ -104,7 +117,8 @@ public class ShowNextAppointmentsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mUserAppDBReference.removeEventListener(mUserAppointValEvList);
+        //mUserAppDBReference.removeEventListener(mUserAppointValEvList);
+        firebaseQuery.removeEventListener(mUserAppointValEvList);
     }
 
 }
