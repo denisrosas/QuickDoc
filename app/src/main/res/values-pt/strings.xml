@@ -61,4 +61,5 @@
     <string name="register_doctor_review">Register Doctor Review</string>
     <string name="dialog_message_confirm_review">Would you like to register this review?</string>
     <string name="save_review_confirmation_dialog">Review saved successfully on Database</string>
+    <string name="doctor_list_explanation">Veja abaixo a lista de médicos encontrados</string>
 </resources>

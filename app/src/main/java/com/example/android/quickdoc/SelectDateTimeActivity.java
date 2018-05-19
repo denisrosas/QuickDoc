@@ -47,18 +47,21 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private ValueEventListener valueEventListener;
     private static final String FIREBASE_CHILD_AGENDA = "agenda";
     private static final String FIREBASE_CHILD_USER_APPOINT = "user_appointments";
+    private static final String FIREBASE_CHILD_FULLDAY = "fullday";
     private Map.Entry<String, ArrayList<String>> firebaseChildMapEntry;
 
     private static final String DOCTOR_DETAILS = "DOCTOR_DETAILS";
     private static final String SPECIALTY_KEY = "SPECIALTY_KEY";
     private static final String SELECTED_HORARY = "SELECTED_HORARY";
     private static final int APPOINTMENT_LIST_SIZE = 16;
+    private static final int MAX_WAITING_DAYS_SCHED = 90;
 
     Calendar currentDate;
     String specialtyKey;
     DoctorDetailsToUser doctorDetailsToUser;
     String doctorId;
     String firebaseUID;
+    boolean lastAppOfDay = false;
 
     @BindView(R.id.radioGroup) RadioGroup radioGroup;
     @BindView(R.id.tv_day) TextView tvDay;
@@ -80,9 +83,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         specialtyKey = getIntent().getStringExtra(SPECIALTY_KEY);
         doctorId = "doctor"+doctorDetailsToUser.getDoctorId();
 
-        //you can comment the line below
         currentDate = Calendar.getInstance();
-        //currentDate.add(Calendar.DAY_OF_YEAR, -2);
 
         setDayMonthTextViews();
 
@@ -142,7 +143,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Calendar ninetyDaysFromToday = Calendar.getInstance();
-                ninetyDaysFromToday.add(Calendar.DAY_OF_YEAR, 90);
+                ninetyDaysFromToday.add(Calendar.DAY_OF_YEAR, MAX_WAITING_DAYS_SCHED);
 
                 //if the previous day is tomorrow
                 if(convertCalendarToString(currentDate).matches(convertCalendarToString(ninetyDaysFromToday))) {
@@ -234,10 +235,12 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         RadioButton radioButton;
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT);
         boolean noHoraryAvailable = true;
+        int availableAppointCount = 0;
 
         for(int index=0; index<availableAppointments.length; index++) {
             if(availableAppointments[index]) {
                 noHoraryAvailable=false;
+                availableAppointCount++;
                 radioButton = new RadioButton(this);
                 radioButton.setText(AppointmentTime.getTimeFromIndex(index));
                 radioButton.setTag(index);
@@ -251,6 +254,10 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         } else {
             buttonSchedAppont.setClickable(true);
         }
+
+        if(availableAppointCount==1)
+            lastAppOfDay=true;
+
         progressBar.setVisibility(View.GONE);
     }
 
@@ -288,7 +295,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         if((mDatabaseReference !=null)&&(valueEventListener!=null))
         mDatabaseReference.removeEventListener(valueEventListener);
 
-        //First step is to remove
+        //First we need to save the appointment in the doctor's agenda
 
         //example path agenda/cardiologist/doctor0/2018-05-06
         mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
@@ -296,7 +303,15 @@ public class SelectDateTimeActivity extends AppCompatActivity {
 
         mDatabaseReference.setValue(firebaseUID);
 
-        //
+        mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
+                .child(specialtyKey).child(doctorId).child(convertCalendarToString(currentDate)).child(FIREBASE_CHILD_FULLDAY);
+
+        if(lastAppOfDay)
+            mDatabaseReference.setValue(true);
+        else
+            mDatabaseReference.setValue(false);
+
+        //after we need to save in the user appointments tree
         mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
                 .child(firebaseUID);
 

@@ -74,13 +74,12 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
         holder.doctorName.setText(doctorDetailsList.get(position).getName());
 
         //Set Dotors avarage reviews
-        //TODO - arrumar formatação das reviews
-        //NumberFormat oneDecimalFormat = new DecimalFormat("0.0");
-        holder.doctorReviews.setText(Float.toString(doctorDetailsList.get(position).getAvaregeReviews()));
+        DecimalFormat df = new DecimalFormat("0.0");
+        holder.doctorReviews.setText(df.format(doctorDetailsList.get(position).getAvaregeReviews()));
 
         //Set TextView distance to doctor
         if(doctorDetailsList.get(position).getDistanceToDoctor()>=0) {
-            DecimalFormat df = new DecimalFormat("0.0");
+
             String distanceString = df.format(doctorDetailsList.get(position).getDistanceToDoctor()) + " " + context.getString(R.string.km);
             holder.doctorDistance.setText(distanceString);
         } else

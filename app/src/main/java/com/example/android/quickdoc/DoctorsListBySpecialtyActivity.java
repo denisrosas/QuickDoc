@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,13 +32,16 @@ import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Random;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,12 +52,16 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
 
     //Reference and Event Listener of the doctors DB tree
-    private DatabaseReference mDoctorsDBReference;
-    private ValueEventListener mDoctorsValueEventList;
+    private Query query;
+    private ValueEventListener valueEventListener;
     ArrayList<DoctorDetails> doctorDetailsList;
+    ArrayList<Integer> minumumWaitingDaysList;
     String specialtyKey;
     private static final String FIREBASE_CHILD_DOCTORS = "doctors";
+    private static final String FIREBASE_CHILD_AGENDA = "agenda";
+    private static final String FIREBASE_CHILD_FULLDAY = "fullday";
     private static final String SELECTED_DOCTOR_SPECIALTY = "SELECTED_DOCTOR_SPECIALTY";
+    private static final int MAX_WAITING_DAYS_SCHED = 30;
 
     enum SortOrder {
         SORT_BY_DISTANCE, SORT_BY_NAME, SORT_BY_RATING, SORT_BY_WAITING_DAYS
@@ -61,6 +70,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
     @BindView(R.id.tv_specialty) TextView textViewSpecialty;
     @BindView(R.id.tv_explanation) TextView textViewExplanation;
     @BindView(R.id.rv_doctor_details) RecyclerView recyclerView;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +90,9 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         int selectedSpecialtyId = getIntent().getIntExtra(SELECTED_DOCTOR_SPECIALTY, -1);
         specialtyKey = new SpecialtyKeys().getKeysByPosition(selectedSpecialtyId);
 
-        attachDoctorsDBReadListener();
+        setTextViews(selectedSpecialtyId);
 
-        SpecialtyNames specialtyNames = new SpecialtyNames(this);
-        textViewSpecialty.setText(specialtyNames.getSpecialtyList().get(selectedSpecialtyId));
-
+        getMinimumWaitingDays();
     }
 
     @Override
@@ -120,12 +128,91 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void getMinimumWaitingDays() {
+        minumumWaitingDaysList = new ArrayList<>();
+
+        //for all doctors we cannot find the agenda, we can set waiting days to 1
+        for(int i=0; i<20; i++)
+            minumumWaitingDaysList.add(1);
+
+        query = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA).child(specialtyKey).limitToFirst(20);
+
+        valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int doctorId;
+                int waitingDays = 0;
+                Calendar currentDate;
+
+                //unfortunately this loop will have a long time
+                for (DataSnapshot childSnapshotDoc : dataSnapshot.getChildren()){
+
+                    //key will be like "doctor3". new we get just the number
+                    String childKey = childSnapshotDoc.getKey();
+                    doctorId = Integer.valueOf(childKey.substring(childKey.length()-1));
+
+                    waitingDays = 1;
+
+                    //start currentDate as tomorrow
+                    currentDate = Calendar.getInstance();
+                    currentDate.add(Calendar.DAY_OF_YEAR, 1);
+
+                    for(int i=0; i<MAX_WAITING_DAYS_SCHED; i++){
+                        String childkey = convertCalendarToString(currentDate);
+
+                        if(childSnapshotDoc.child(childkey).exists()){
+
+                            try {
+                                //if the currentDate agenda is full, we increase waitingDays
+                                if(childSnapshotDoc.child(childkey).child(FIREBASE_CHILD_FULLDAY).getValue(boolean.class))
+                                    waitingDays++;
+                                else
+                                    //if the day is not full, means we found the next day with a free appointment
+                                    break;
+
+                            } catch (NullPointerException e) {
+                                e.printStackTrace();
+                            }
+                        } else{
+                            //if the date does't exists, means the schedule is empty and we
+                            // found the next day with a free appointment
+                            break;
+                        }
+                        currentDate.add(Calendar.DAY_OF_YEAR, 1);
+                    }
+
+                    minumumWaitingDaysList.set(doctorId, waitingDays);
+                }
+                attachDoctorsDBReadListener();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        query.addListenerForSingleValueEvent(valueEventListener);
+
+    }
+
+    private void setTextViews(int selectedSpecialtyId) {
+        SpecialtyNames specialtyNames = new SpecialtyNames(this);
+        textViewSpecialty.setText(specialtyNames.getSpecialtyList().get(selectedSpecialtyId));
+
+        textViewExplanation.setText(R.string.doctor_list_explanation);
+
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
     private void attachDoctorsDBReadListener() {
 
         Log.i("denis", "specialtyKey: "+specialtyKey);
-        mDoctorsDBReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_DOCTORS).child(specialtyKey);
+        query = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_DOCTORS).child(specialtyKey);
 
-        mDoctorsValueEventList = new ValueEventListener() {
+        valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 doctorDetailsList = new ArrayList<>();
@@ -148,7 +235,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
             }
 
         };
-        mDoctorsDBReference.addValueEventListener(mDoctorsValueEventList);
+        query.addValueEventListener(valueEventListener);
     }
 
     private void fillRecyclerView(SortOrder sortOrder) {
@@ -162,11 +249,9 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
 
             doctorDetailsToUserList.add(new DoctorDetailsToUser(doctorDetailsList.get(index)));
 
-            //TODO - calculate the distance from user to Doctor office
             doctorDetailsToUserList.get(index).setDistanceToDoctor(calculateDistance(index));
 
-            //TODO - calculate the quantity of waiting days
-            doctorDetailsToUserList.get(index).setWaitingDays(new Random().nextInt(60));
+            doctorDetailsToUserList.get(index).setWaitingDays(minumumWaitingDaysList.get(index));
 
             doctorDetailsToUserList.get(index).setDoctorId(index);
         }
@@ -192,6 +277,8 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         AvailableDoctorsListAdapter availableDoctorsListAdapter = new AvailableDoctorsListAdapter(doctorDetailsToUserList, specialtyKey, getApplicationContext());
 
         recyclerView.setAdapter(availableDoctorsListAdapter);
+
+        progressBar.setVisibility(View.GONE);
     }
 
     /** If has permission, returns the distance to the doctor in Kms
@@ -214,6 +301,13 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
 
     }
 
+    private String convertCalendarToString(Calendar calendar) {
+        Date date = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Log.i("denis", "Data: "+dateFormat.format(date));
+        return dateFormat.format(date);
+    }
+
     /**Check if user is connected. If not, finish the activity */
     private void createFirebaseAuthListener() {
         if(FirebaseAuth.getInstance().getCurrentUser()==null) {
@@ -225,6 +319,6 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mDoctorsDBReference.removeEventListener(mDoctorsValueEventList);
+        query.removeEventListener(valueEventListener);
     }
 }
