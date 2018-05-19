@@ -1,6 +1,8 @@
 package com.example.android.quickdoc;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Firebase Database Variables
     private static final String SELECTED_DOCTOR_SPECIALTY = "SELECTED_DOCTOR_SPECIALTY";
+    private static final int MY_PERMISSIONS_REQUEST = 10;
 
     //Firebase Authentication Variables
     private FirebaseAuth mFirebaseAuth;
@@ -47,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
         //check if user is connected. If is, attach the ChildEventListener
         createFirebaseAuthListener();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST);
+        }
 
         //Settting Button's OnClickListeners
         startViewsAndButtons();

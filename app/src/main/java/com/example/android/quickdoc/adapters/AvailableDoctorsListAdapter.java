@@ -23,6 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableDoctorsListAdapter.doctorDetailViewHolder> {
@@ -78,8 +79,12 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
         holder.doctorReviews.setText(Float.toString(doctorDetailsList.get(position).getAvaregeReviews()));
 
         //Set TextView distance to doctor
-        String distanceString = doctorDetailsList.get(position).getDistanceToDoctor()+" "+context.getString(R.string.km);
-        holder.doctorDistance.setText(distanceString);
+        if(doctorDetailsList.get(position).getDistanceToDoctor()>=0) {
+            DecimalFormat df = new DecimalFormat("0.0");
+            String distanceString = df.format(doctorDetailsList.get(position).getDistanceToDoctor()) + " " + context.getString(R.string.km);
+            holder.doctorDistance.setText(distanceString);
+        } else
+            holder.doctorDistance.setVisibility(View.GONE);
 
         //Set Doctors days to next appointment
         String waitingDaysString = doctorDetailsList.get(position).getWaitingDays()+" "+context.getString(R.string.days);
