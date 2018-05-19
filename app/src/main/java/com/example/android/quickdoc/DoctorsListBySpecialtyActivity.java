@@ -14,7 +14,6 @@ import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
 import com.example.android.quickdoc.dataClasses.SpecialtyKeys;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,21 +31,12 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
     //Firebase Database
     private FirebaseDatabase mFirebaseDatabase;
 
-    //Reference and Event Listener of the specialties DB tree
-    private ChildEventListener mSpecChildEventListener;
-    private static final String FIREBASE_CHILD_SPECIALTIES = "specialties";
-
     //Reference and Event Listener of the doctors DB tree
     private DatabaseReference mDoctorsDBReference;
     private ValueEventListener mDoctorsValueEventList;
     private static final String FIREBASE_CHILD_DOCTORS = "doctors";
 
     private static final String SELECTED_DOCTOR_SPECIALTY = "SELECTED_DOCTOR_SPECIALTY";
-
-    //Firebase Authentication Variables
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private static final int RC_SIGN_IN = 1;
 
     @BindView(R.id.tv_specialty) TextView textViewSpecialty;
     @BindView(R.id.tv_explanation) TextView textViewExplanation;

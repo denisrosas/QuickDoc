@@ -72,8 +72,11 @@ public class ShowPastAppointList extends AppCompatActivity {
 
                 for(DataSnapshot childSnapshot : dataSnapshot.getChildren()){
                     UserAppointment userAppointment = childSnapshot.getValue(UserAppointment.class);
-                    userAppointments.add(userAppointment);
-                    childKeys.add(childSnapshot.getKey());
+                    //check if the appointment is already reviewed. If is, don't display in the list
+                    if(!userAppointment.isReviewed()) {
+                        userAppointments.add(userAppointment);
+                        childKeys.add(childSnapshot.getKey());
+                    }
                 }
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());

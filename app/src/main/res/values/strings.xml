@@ -52,4 +52,17 @@
     <string name="no_appointments_for_this_user">No appointments scheduled for this user</string>
     <string name="cancel_appoiontment">Cancel Appointment with Doctor</string>
     <string name="dialog_message_confirm_cancel">Would you like to cancel this appointment?</string>
+    <string name="review_title">Review Title</string>
+    <string name="hint_review_text">Write your review here…</string>
+    <string name="type_your_review_here">Type your review here</string>
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
+    <string name="start_review_grade">2.5</string>
+    <string name="grade">Grade</string>
+    <string name="picture_of_the_doctor">Picture of the Doctor</string>
+    <string name="register_doctor_review">Register Doctor Review</string>
+    <string name="dialog_message_confirm_review">Would you like to register this review?</string>
+    <string name="save_review_confirmation_dialog">Review saved successfully on Database</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

@@ -10,13 +10,14 @@ public class UserReview {
     private String reviewText;
     private String date;
     private int time;
-    private float review;
+    private float reviewGrade;
 
-    public UserReview(String reviewTitle, String reviewText, String date, int time) {
+    public UserReview(String reviewTitle, String reviewText, String date, int time, float reviewGrade) {
         this.reviewTitle = reviewTitle;
         this.reviewText = reviewText;
         this.date = date;
         this.time = time;
+        this.reviewGrade = reviewGrade;
     }
 
     public String getReviewTitle() {
@@ -34,4 +35,9 @@ public class UserReview {
     public int getTime() {
         return time;
     }
+
+    public float getReviewGrade() {
+        return reviewGrade;
+    }
+
 }

@@ -26,7 +26,17 @@
         <activity android:name=".DoctorDetailsActivity" />
         <activity android:name=".SelectDateTimeActivity" />
         <activity android:name=".AppointmentDetailsActivity" />
-        <activity android:name=".ReviewAppointmentActivity"></activity>
+        <activity android:name=".ReviewAppointmentActivity" />
+
+        <receiver android:name=".ShowNextAppointWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/show_next_appoint_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
