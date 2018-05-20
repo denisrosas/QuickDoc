@@ -296,7 +296,10 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
             Location locationDoctor = new Location("Doctor's Office");
             locationDoctor.setLatitude(doctorDetailsList.get(doctorId).getAddressLat());
             locationDoctor.setLongitude(doctorDetailsList.get(doctorId).getAddressLng());
-            return (locationUser.distanceTo(locationDoctor) / 1000); //meters to km
+            if(locationUser!=null)
+                return (locationUser.distanceTo(locationDoctor) / 1000); //meters to km
+
+            return -1;
         }
 
     }

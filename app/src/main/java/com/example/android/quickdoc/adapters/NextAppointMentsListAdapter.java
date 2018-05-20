@@ -50,6 +50,7 @@ public class NextAppointMentsListAdapter extends RecyclerView.Adapter<NextAppoin
                 Intent intent = new Intent(context, AppointmentDetailsActivity.class);
                 intent.putExtra(USER_APPOINTMENT,userAppointmentsList.get(holder.getAdapterPosition()));
                 intent.putExtra(CHILD_KEY, childKeys.get(holder.getAdapterPosition()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

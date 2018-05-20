@@ -19,6 +19,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -43,6 +44,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_address_text) TextView textViewAddressText;
     @BindView(R.id.tv_distance) TextView textViewDistance;
     @BindView(R.id.tv_phone_number) TextView textViewPhone;
+    @BindView(R.id.tv_waiting_time) TextView textViewWaitingTime;
 
     @BindView(R.id.iv_doctor_photo) ImageView imageViewDocPhoto;
     @BindView(R.id.iv_amil) ImageView imageViewAmil;
@@ -102,9 +104,12 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         textViewDocName.setText(doctorDetailsToUser.getName());
         textViewSpecialty.setText(SpecialtyNames.getSpecialtyName(this, specialtyKey));
 
+        //Set Dotors avarage reviews
+        DecimalFormat df = new DecimalFormat("0.0");
+        textViewAvrgReviews.setText(df.format(doctorDetailsToUser.getAvaregeReviews()));
 
-        textViewAvrgReviews.setText(Float.toString(doctorDetailsToUser.getAvaregeReviews()));
-
+        String textWaitingDays = getString(R.string.available_in)+" "+doctorDetailsToUser.getWaitingDays()+" "+getString(R.string.days);
+        textViewWaitingTime.setText(textWaitingDays);
 
         textViewPresentation.setText(getString(R.string.doctor_presentation));
 
@@ -118,7 +123,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         textViewDocAddress.setText(getString(R.string.address));
         textViewAddressText.setText(doctorDetailsToUser.getAddressExtended());
 
-        String discanteKm = getString(R.string.distance)+": "+Float.toString(doctorDetailsToUser.getDistanceToDoctor())+" "+getString(R.string.km);
+        String discanteKm = getString(R.string.distance)+": "+df.format(doctorDetailsToUser.getDistanceToDoctor())+" "+getString(R.string.km);
         textViewDistance.setText(discanteKm);
 
         textViewPhone.setText(doctorDetailsToUser.getPhoneNumber());

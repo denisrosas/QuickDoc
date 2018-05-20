@@ -20,6 +20,7 @@ import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
 import com.example.android.quickdoc.dataClasses.Months;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.example.android.quickdoc.dataClasses.UserAppointment;
+import com.example.android.quickdoc.dataClasses.WeekDays;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +44,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
 
     //Reference and Event Listener of the specialties DB tree
-    private DatabaseReference mDatabaseReference;
+    private DatabaseReference databaseReference;
     private ValueEventListener valueEventListener;
     private static final String FIREBASE_CHILD_AGENDA = "agenda";
     private static final String FIREBASE_CHILD_USER_APPOINT = "user_appointments";
@@ -56,7 +57,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private static final int APPOINTMENT_LIST_SIZE = 16;
     private static final int MAX_WAITING_DAYS_SCHED = 90;
 
-    Calendar currentDate;
+    Calendar currentDate = Calendar.getInstance();
     String specialtyKey;
     DoctorDetailsToUser doctorDetailsToUser;
     String doctorId;
@@ -66,6 +67,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     @BindView(R.id.radioGroup) RadioGroup radioGroup;
     @BindView(R.id.tv_day) TextView tvDay;
     @BindView(R.id.tv_month) TextView tvMonth;
+    @BindView(R.id.tv_week_day) TextView tvWeekDay;
     @BindView(R.id.iv_prev_day) ImageView ivPrevDay;
     @BindView(R.id.iv_next_day) ImageView ivNextDay;
     @BindView(R.id.bt_schedule_appointment) Button buttonSchedAppont;
@@ -83,7 +85,8 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         specialtyKey = getIntent().getStringExtra(SPECIALTY_KEY);
         doctorId = "doctor"+doctorDetailsToUser.getDoctorId();
 
-        currentDate = Calendar.getInstance();
+        //start currentdate as tomorrow
+        setToNextWeekDay();
 
         setDayMonthTextViews();
 
@@ -103,6 +106,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private void setDayMonthTextViews() {
         tvDay.setText(String.valueOf(currentDate.get(Calendar.DAY_OF_MONTH)));
         tvMonth.setText(Months.getMonthName(currentDate.get(Calendar.MONTH), this));
+        tvWeekDay.setText(WeekDays.getMonthName(currentDate.get(Calendar.DAY_OF_WEEK), this));
     }
 
     private void setOnClickListeners() {
@@ -121,13 +125,13 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                 } else{
                     progressBar.setVisibility(View.VISIBLE);
 
-                    //set currentDay to the previous day
-                    currentDate.add(Calendar.DAY_OF_YEAR, -1);
+                    //set currentDay to the previous week day
+                    setToPrevWeekDay();
 
                     setDayMonthTextViews();
 
-                    if(valueEventListener!=null)
-                        mDatabaseReference.removeEventListener(valueEventListener);
+                    if((valueEventListener!=null)&&(databaseReference!=null))
+                        databaseReference.removeEventListener(valueEventListener);
 
                     //remove all radio Buttons
                     radioGroup.removeAllViews();
@@ -152,12 +156,12 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
 
                     //set currentDay to the previous day
-                    currentDate.add(Calendar.DAY_OF_YEAR, 1);
+                    setToNextWeekDay();
 
                     setDayMonthTextViews();
 
                     if(valueEventListener!=null)
-                        mDatabaseReference.removeEventListener(valueEventListener);
+                        databaseReference.removeEventListener(valueEventListener);
 
                     //remove all radio Buttons
                     radioGroup.removeAllViews();
@@ -186,16 +190,51 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         return dateFormat.format(date);
     }
 
+    private void setToPrevWeekDay() {
+
+        currentDate.add(Calendar.DAY_OF_YEAR, -1);
+
+        switch (currentDate.get(Calendar.DAY_OF_WEEK)){
+            case Calendar.SUNDAY:
+                currentDate.add(Calendar.DAY_OF_YEAR, -2);
+                break;
+            case Calendar.SATURDAY:
+                currentDate.add(Calendar.DAY_OF_YEAR, -1);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setToNextWeekDay() {
+
+        currentDate.add(Calendar.DAY_OF_YEAR, 1);
+
+        switch (currentDate.get(Calendar.DAY_OF_WEEK)){
+            case Calendar.SATURDAY:
+                currentDate.add(Calendar.DAY_OF_YEAR, 2);
+                break;
+            case Calendar.SUNDAY:
+                currentDate.add(Calendar.DAY_OF_YEAR, 1);
+                break;
+            default:
+                break;
+        }
+    }
+
     /*
 
      */
     private void firebaseAttachValueEventList(String firebaseDate) {
-         mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
+         databaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
          .child(specialtyKey).child(doctorId).child(firebaseDate);
 
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.i("denis", "onDataChanged()");
+
                 //create boolean vector representing the available appointments of the day
                 boolean[] availableAppointments = new boolean[APPOINTMENT_LIST_SIZE];
 
@@ -226,12 +265,15 @@ public class SelectDateTimeActivity extends AppCompatActivity {
             }
         };
 
-        mDatabaseReference.addValueEventListener(valueEventListener);
+        databaseReference.addListenerForSingleValueEvent(valueEventListener);
     }
 
     /* Creates a list of Radio Buttons. One Radio button for every available schedule
     * */
     private void updateDateMonthAppList(boolean[] availableAppointments){
+
+        Log.i("denis", "updateDateMonthAppList()");
+
         RadioButton radioButton;
         RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT, RadioGroup.LayoutParams.WRAP_CONTENT);
         boolean noHoraryAvailable = true;
@@ -292,27 +334,27 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private void addAppointmentOnDatabase(int selectedHorary) {
 
         //remove the event listener
-        if((mDatabaseReference !=null)&&(valueEventListener!=null))
-        mDatabaseReference.removeEventListener(valueEventListener);
+        if((databaseReference !=null)&&(valueEventListener!=null))
+        databaseReference.removeEventListener(valueEventListener);
 
         //First we need to save the appointment in the doctor's agenda
 
         //example path agenda/cardiologist/doctor0/2018-05-06
-        mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
+        databaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
                 .child(specialtyKey).child(doctorId).child(convertCalendarToString(currentDate)).child(""+selectedHorary);
 
-        mDatabaseReference.setValue(firebaseUID);
+        databaseReference.setValue(firebaseUID);
 
-        mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
+        databaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
                 .child(specialtyKey).child(doctorId).child(convertCalendarToString(currentDate)).child(FIREBASE_CHILD_FULLDAY);
 
         if(lastAppOfDay)
-            mDatabaseReference.setValue(true);
+            databaseReference.setValue(true);
         else
-            mDatabaseReference.setValue(false);
+            databaseReference.setValue(false);
 
         //after we need to save in the user appointments tree
-        mDatabaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
+        databaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
                 .child(firebaseUID);
 
         //getting last character of doctorId (Ex: "doctor2") and transform to int
@@ -321,7 +363,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         UserAppointment userAppointment = new UserAppointment(convertCalendarToString(currentDate),
                 selectedHorary, specialtyKey, appDoctorId, false, false);
 
-        mDatabaseReference.push().setValue(userAppointment);
+        databaseReference.push().setValue(userAppointment);
     }
 
     private String getConfirmationMessage(int horary) {
@@ -345,30 +387,9 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mDatabaseReference.removeEventListener(valueEventListener);
-        mDatabaseReference = null;
+        databaseReference.removeEventListener(valueEventListener);
+        databaseReference = null;
         valueEventListener = null;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        progressBar.setVisibility(View.VISIBLE);
-        firebaseAttachValueEventList(convertCalendarToString(currentDate));
-    }
-
-    //Save and restore the state of the RadioGroup
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(SELECTED_HORARY,radioGroup.getCheckedRadioButtonId());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        int selectedHoraryRadioId = savedInstanceState.getInt(SELECTED_HORARY);
-        RadioButton radioButton = radioGroup.findViewById(selectedHoraryRadioId);
-        radioButton.setChecked(true);
-    }
 }

@@ -63,6 +63,7 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
                 Intent intent = new Intent(context, DoctorDetailsActivity.class);
                 intent.putExtra(DOCTOR_DETAILS, doctorDetailsList.get(holder.getAdapterPosition()));
                 intent.putExtra(SPECIALTY_KEY, specialtyKey);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

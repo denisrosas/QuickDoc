@@ -16,8 +16,8 @@ public class DoctorDetails implements Serializable{
     private String addressExtended;
     private String phoneNumber;
 
-    private String presentation_en;
-    private String presentation_pt;
+    private String presentationEn;
+    private String presentationPt;
 
     //accepted health care planes
     private boolean acceptsAmil;
@@ -29,7 +29,7 @@ public class DoctorDetails implements Serializable{
 
     public DoctorDetails(){}
 
-    public DoctorDetails(String name, float avaregeReviews, int reviewsCount, float addressLat, float addressLng, String addressExtended, String phoneNumber, String presentation_en, String presentation_pt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
+    public DoctorDetails(String name, float avaregeReviews, int reviewsCount, float addressLat, float addressLng, String addressExtended, String phoneNumber, String presentationEn, String presentationPt, boolean acceptsAmil, boolean acceptsBradescoSaude, boolean acceptsHapVida, boolean acceptsPreventSenior, boolean acceptsSulamerica, boolean acceptsUnimed) {
         this.name = name;
         this.avaregeReviews = avaregeReviews;
         this.reviewsCount = reviewsCount;
@@ -37,8 +37,8 @@ public class DoctorDetails implements Serializable{
         this.addressLng = addressLng;
         this.addressExtended = addressExtended;
         this.phoneNumber = phoneNumber;
-        this.presentation_en = presentation_en;
-        this.presentation_pt = presentation_pt;
+        this.presentationEn = presentationEn;
+        this.presentationPt = presentationPt;
         this.acceptsAmil = acceptsAmil;
         this.acceptsBradescoSaude = acceptsBradescoSaude;
         this.acceptsHapVida = acceptsHapVida;
@@ -72,11 +72,11 @@ public class DoctorDetails implements Serializable{
     }
 
     public String getPresentationEn() {
-        return presentation_en;
+        return presentationEn;
     }
 
     public String getPresentationPt() {
-        return presentation_pt;
+        return presentationPt;
     }
 
     public int getReviewsCount() {
