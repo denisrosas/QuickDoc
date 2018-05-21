@@ -1,21 +1,36 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_widget_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09C"
-    android:padding="@dimen/widget_margin">
+    android:background="#FFFFFF"
+    android:padding="@dimen/widget_margin"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/appwidget_text"
+        android:id="@+id/textview_introduction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:lineSpacingExtra="10sp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:text="@string/see_your_next_appointments_below" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/textview_appointment_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:lineSpacingExtra="10sp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        tools:text="Cardiologista - 10/05/2018 - 10:30" />
+
+    <ListView
+        android:id="@+id/listview_next_appointment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

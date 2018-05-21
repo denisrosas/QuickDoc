@@ -51,5 +51,4 @@ public class UserAppointment implements Serializable {
     public boolean isWontReview() {
         return wontReview;
     }
-
 }
