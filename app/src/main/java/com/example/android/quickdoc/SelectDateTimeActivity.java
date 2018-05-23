@@ -21,6 +21,7 @@ import com.example.android.quickdoc.dataClasses.Months;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.example.android.quickdoc.dataClasses.UserAppointment;
 import com.example.android.quickdoc.dataClasses.WeekDays;
+import com.example.android.quickdoc.widget.IntentServiceWidget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,11 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,11 +48,10 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private static final String FIREBASE_CHILD_AGENDA = "agenda";
     private static final String FIREBASE_CHILD_USER_APPOINT = "user_appointments";
     private static final String FIREBASE_CHILD_FULLDAY = "fullday";
-    private Map.Entry<String, ArrayList<String>> firebaseChildMapEntry;
 
     private static final String DOCTOR_DETAILS = "DOCTOR_DETAILS";
     private static final String SPECIALTY_KEY = "SPECIALTY_KEY";
-    private static final String SELECTED_HORARY = "SELECTED_HORARY";
+    private static final String ACTION_UPDATE = "com.example.android.quickdoc.action.UPDATE_WIDGETS";
     private static final int APPOINTMENT_LIST_SIZE = 16;
     private static final int MAX_WAITING_DAYS_SCHED = 90;
 
@@ -345,6 +343,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
 
         databaseReference.setValue(firebaseUID);
 
+        //Second we save the fullday child as true, if this was the last appointment available in the day
         databaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
                 .child(specialtyKey).child(doctorId).child(convertCalendarToString(currentDate)).child(FIREBASE_CHILD_FULLDAY);
 
@@ -353,7 +352,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
         else
             databaseReference.setValue(false);
 
-        //after we need to save in the user appointments tree
+        //Third we need to save in the user appointments tree
         databaseReference = mFirebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
                 .child(firebaseUID);
 
@@ -364,6 +363,11 @@ public class SelectDateTimeActivity extends AppCompatActivity {
                 selectedHorary, specialtyKey, appDoctorId, false, false);
 
         databaseReference.push().setValue(userAppointment);
+
+        //And last create an intent to update any Widgets that are in the home screen
+        Intent intent = new Intent(getApplicationContext(), IntentServiceWidget.class);
+        intent.setAction(ACTION_UPDATE);
+        getApplicationContext().startService(intent);
     }
 
     private String getConfirmationMessage(int horary) {

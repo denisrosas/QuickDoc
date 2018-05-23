@@ -25,6 +25,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_doctor_photo"
@@ -37,7 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="@+id/tv_avarage_reviews"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/tv_avarage_reviews"
         tools:text="Cardiologista" />
 
@@ -45,9 +48,11 @@
         android:id="@+id/tv_avarage_reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_doctor_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_doctor_name"
+        android:layout_marginStart="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3"
         tools:text="4.1" />
 
     <TextView
@@ -55,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tv_specialty"
         app:layout_constraintTop_toBottomOf="@+id/tv_specialty"
@@ -66,6 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_date"
         app:layout_constraintStart_toEndOf="@+id/tv_date"
@@ -77,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_phone_number"
         app:layout_constraintTop_toBottomOf="@+id/tv_phone_number"
         tools:text="Accepted Health Care" />
@@ -86,15 +94,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="@+id/iv_amil"
         app:layout_constraintTop_toBottomOf="@+id/iv_amil"
         tools:text="Address:" />
 
     <TextView
         android:id="@+id/tv_address_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_address"
         app:layout_constraintTop_toBottomOf="@+id/tv_address"
         tools:text="Rua Gilberto Laranjeira, 56 - Japiim - Manaus" />
@@ -117,6 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_address_text"
         app:layout_constraintTop_toBottomOf="@+id/tv_address_text"
         tools:text="Calculated Distance: 7.7 Km" />
@@ -126,6 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/iv_doctor_photo"
         app:layout_constraintTop_toBottomOf="@+id/iv_doctor_photo"
@@ -190,5 +204,14 @@
         app:layout_constraintStart_toEndOf="@+id/iv_sulamerica"
         app:layout_constraintTop_toTopOf="@+id/iv_sulamerica"
         app:srcCompat="@drawable/health_care_unimed" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_doctor_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_doctor_name"
+        app:srcCompat="@drawable/star" />
 
 </android.support.constraint.ConstraintLayout>

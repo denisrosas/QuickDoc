@@ -1,10 +1,17 @@
 package com.example.android.quickdoc;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +25,7 @@ import com.example.android.quickdoc.dataClasses.DoctorDetails;
 import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.example.android.quickdoc.dataClasses.UserAppointment;
+import com.example.android.quickdoc.widget.IntentServiceWidget;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +38,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.Random;
 
@@ -38,17 +47,16 @@ import butterknife.ButterKnife;
 
 public class AppointmentDetailsActivity extends AppCompatActivity {
 
-    private static final String DOCTOR_DETAILS = "DOCTOR_DETAILS";
-    private static final String DOCTOR_ID = "DOCTOR_ID";
-    private static final String SPECIALTY_KEY = "SPECIALTY_KEY";
     private static final String FIREBASE_CHILD_DOCTORS = "doctors";
     private static final String PHOTOS_FOLDER = "photos";
     private static final String BIG_PHOTO_FILENAME_PREFIX = "doctor_big";
     private static final String PHOTO_EXTENSION = ".jpg";
     private static final String USER_APPOINTMENT = "USER_APPOINTMENT";
+    private static final String FIREBASE_CHILD_FULLDAY = "fullday";
     private static final String FIREBASE_CHILD_AGENDA = "agenda";
     private static final String FIREBASE_CHILD_USER_APPOINT = "user_appointments";
     private static final String CHILD_KEY = "CHILD_KEY";
+    private static final String ACTION_UPDATE = "com.example.android.quickdoc.action.UPDATE_WIDGETS";
 
     DoctorDetailsToUser doctorDetails;
     FirebaseDatabase firebaseDatabase;
@@ -125,6 +133,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
                 String encodedQuery = Uri.encode(query);
                 String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
                 Uri uri = Uri.parse(uriString);
+                Log.i("denis", "URI pra abrir o Maps: "+uri.toString());
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -186,7 +195,27 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
     }
 
     private float calculateDistance(float lat, float lng) {
-        return 0;
+        /** If has permission, returns the distance to the doctor in Kms
+         * */
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        if ((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
+                && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)){
+
+            return -1;
+
+        } else {
+            Location locationUser = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
+            Location locationDoctor = new Location("Doctor's Office");
+            locationDoctor.setLatitude(lat);
+            locationDoctor.setLongitude(lng);
+            if(locationUser!=null)
+                return (locationUser.distanceTo(locationDoctor) / 1000); //meters to km
+
+            return -1;
+        }
+
+
     }
 
     private void hideUnsupportedHealthPlanes(DoctorDetailsToUser doctorDetailsToUser) {
@@ -216,8 +245,8 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         textViewDocName.setText(doctorDetailsToUser.getName());
         textViewSpecialty.setText(SpecialtyNames.getSpecialtyName(this, userAppointment.getSpecialty()));
 
-
-        textViewAvrgReviews.setText(Float.toString(doctorDetailsToUser.getAvaregeReviews()));
+        DecimalFormat df = new DecimalFormat("0.0");
+        textViewAvrgReviews.setText(df.format(doctorDetailsToUser.getAvaregeReviews()));
 
         textViewDate.setText(getAdaptedDate(userAppointment.getDate()));
         textViewTime.setText(AppointmentTime.getTimeFromIndex(userAppointment.getTime()));
@@ -226,7 +255,13 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         textViewDocAddress.setText(getString(R.string.address));
         textViewAddressText.setText(doctorDetailsToUser.getAddressExtended());
 
-        String discanteKm = getString(R.string.distance)+": "+Float.toString(doctorDetailsToUser.getDistanceToDoctor())+" "+getString(R.string.km);
+        //if we can't get the location, then getDistanceToDoctor will return -1
+        String discanteKm;
+        if(doctorDetailsToUser.getDistanceToDoctor()>=0)
+            discanteKm = getString(R.string.distance)+": "+Float.toString(doctorDetailsToUser.getDistanceToDoctor())+" "+getString(R.string.km);
+        else
+            discanteKm = "-";
+
         textViewDistance.setText(discanteKm);
 
         textViewPhone.setText(doctorDetailsToUser.getPhoneNumber());
@@ -267,18 +302,28 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         if((databaseReference !=null)&&(valueEventListener!=null))
             databaseReference.removeEventListener(valueEventListener);
 
-        //example path agenda/cardiologist/doctor0/2018-05-06
+        //than make the time free in the agenda
+        //example path agenda/cardiologist/doctor0/2018-05-06/3
         databaseReference = firebaseDatabase.getReference().child(FIREBASE_CHILD_AGENDA)
                 .child(userAppointment.getSpecialty()).child("doctor"+userAppointment.getDoctorId())
-                .child(userAppointment.getDate()).child(""+userAppointment.getTime());
+                .child(userAppointment.getDate());
 
-        databaseReference.removeValue();
+        databaseReference.child(""+userAppointment.getTime()).removeValue();
 
-        //
+        //and set fullday to false, as we know tehre is at least one time available
+        databaseReference.child(FIREBASE_CHILD_FULLDAY).setValue(false);
+
+        //remove the appointment from the user appointment tree
+        //example path: /user_appointments/firebaseUID/uniquekey
         databaseReference = firebaseDatabase.getReference().child(FIREBASE_CHILD_USER_APPOINT)
                 .child(firebaseUID).child(childAppointmentKey);
 
         databaseReference.removeValue();
+
+        //And last create an intent to update any Widgets that are in the home screen
+        Intent intent = new Intent(getApplicationContext(), IntentServiceWidget.class);
+        intent.setAction(ACTION_UPDATE);
+        getApplicationContext().startService(intent);
 
     }
 
