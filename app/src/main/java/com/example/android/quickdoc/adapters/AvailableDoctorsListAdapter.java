@@ -92,7 +92,7 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
     }
 
     /** Gets the image from Firebase and set in the imageView using Picasso*/
-    private void setFirebaseDoctorPhoto(final ImageView smallPhotoView, int doctorId) {
+    private void setFirebaseDoctorPhoto(final ImageView smallPhotoView, final int doctorId) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         StorageReference storageReference = storage.getReference();
@@ -109,7 +109,7 @@ public class AvailableDoctorsListAdapter extends RecyclerView.Adapter<AvailableD
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Picasso.get().load(R.drawable.doctor_small_default).transform(new CropCircleTransformation()).into(smallPhotoView);
-                    Log.i("denis", "Fail to load image");
+                    Log.i("denis", "Fail to photo. URL: "+PHOTOS_FOLDER+"/"+specialtyKey +"/" +SMALL_PHOTO_FILENAME_PREFIX+doctorId);
                 }
             });
     }

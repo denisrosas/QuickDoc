@@ -53,6 +53,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     @BindView(R.id.iv_prevent) ImageView imageViewPrevent;
     @BindView(R.id.iv_sulamerica) ImageView imageViewSulamerica;
     @BindView(R.id.iv_unimed) ImageView imageViewUnimed;
+    @BindView(R.id.iv_get_directions) ImageView imageViewGetDirections;
 
     @BindView(R.id.button_schedule_appointment) Button buttonScheduleAppointment;
 
@@ -133,26 +134,18 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 
     public void setOnClickListeners(final DoctorDetailsToUser doctorDetailsToUser, final String specialtyKey){
 
-        //Open map application when app is pressed
+        //Open map application when address or map image is clicked
         textViewAddressText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double latitude = doctorDetailsToUser.getAddressLat();
-                double longitude = doctorDetailsToUser.getAddressLng();
-                String label;
+                callMapsActivity(doctorDetailsToUser);
+            }
+        });
 
-                if(Locale.getDefault().getLanguage().matches("pt")) {
-                     label = getString(R.string.office)+"do(a) "+doctorDetailsToUser.getName();
-                } else {
-                    label = doctorDetailsToUser.getName()+"'s "+getString(R.string.office);
-                }
-                String uriBegin = "geo:" + latitude + "," + longitude;
-                String query = latitude + "," + longitude + "(" + label + ")";
-                String encodedQuery = Uri.encode(query);
-                String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
-                Uri uri = Uri.parse(uriString);
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+        imageViewGetDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callMapsActivity(doctorDetailsToUser);
             }
         });
 
@@ -160,14 +153,10 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         textViewPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // It open the dialer app and allow user to call the number manually
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                // Send phone number to intent as data
-                intent.setData(Uri.parse("tel:" + doctorDetailsToUser.getPhoneNumber()));
-                // Start the dialer app activity with number
-                startActivity(intent);
+                callDialerActivity(doctorDetailsToUser);
             }
         });
+
 
         //if the button is pressed, go to activity to select date/time of the appointment
         buttonScheduleAppointment.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +168,34 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void callDialerActivity(DoctorDetailsToUser doctorDetailsToUser) {
+        // It open the dialer app and allow user to call the number manually
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        // Send phone number to intent as data
+        intent.setData(Uri.parse("tel:" + doctorDetailsToUser.getPhoneNumber()));
+        // Start the dialer app activity with number
+        startActivity(intent);
+    }
+
+    private void callMapsActivity(final DoctorDetailsToUser doctorDetailsToUser) {
+        double latitude = doctorDetailsToUser.getAddressLat();
+        double longitude = doctorDetailsToUser.getAddressLng();
+        String label;
+
+        if(Locale.getDefault().getLanguage().matches("pt")) {
+            label = getString(R.string.office)+"do(a) "+doctorDetailsToUser.getName();
+        } else {
+            label = doctorDetailsToUser.getName()+"'s "+getString(R.string.office);
+        }
+        String uriBegin = "geo:" + latitude + "," + longitude;
+        String query = latitude + "," + longitude + "(" + label + ")";
+        String encodedQuery = Uri.encode(query);
+        String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+        Uri uri = Uri.parse(uriString);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     /** Gets the image from Firebase and set in the imageView using Picasso*/

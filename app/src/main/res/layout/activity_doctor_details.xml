@@ -1,220 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.quickdoc.DoctorDetailsActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.android.quickdoc.DoctorDetailsActivity" >
 
-    <ImageView
-        android:id="@+id/iv_doctor_photo"
-        android:layout_width="144dp"
-        android:layout_height="196dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:contentDescription="TODO"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/doctor_big_default" />
 
-    <TextView
-        android:id="@+id/tv_doctor_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_doctor_photo"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Carlos Alberto Sardenberg" />
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/tv_specialty"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/tv_avarage_reviews"
-        tools:text="Cardiologista" />
+        <ImageView
+            android:id="@+id/iv_doctor_photo"
+            android:layout_width="144dp"
+            android:layout_height="196dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/doctor_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/doctor_big_default" />
 
-    <TextView
-        android:id="@+id/tv_avarage_reviews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="4.1"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        <TextView
+            android:id="@+id/tv_doctor_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_doctor_photo"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Carlos Alberto Sardenberg" />
 
-    <TextView
-        android:id="@+id/tv_presentation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/doctor_presentation"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/iv_doctor_photo"
-        app:layout_constraintTop_toBottomOf="@+id/iv_doctor_photo" />
+        <TextView
+            android:id="@+id/tv_specialty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_avarage_reviews"
+            tools:text="Cardiologista" />
 
-    <TextView
-        android:id="@+id/tv_presentation_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textAlignment="viewStart"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_presentation"
-        app:layout_constraintTop_toBottomOf="@+id/tv_presentation"
-        tools:text="Doctor X is gratuated in Y university and is a specialist in saphenous vein surgery. " />
+        <TextView
+            android:id="@+id/tv_avarage_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            tools:text="4.1"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-    <TextView
-        android:id="@+id/tv_accepted_health_care"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Accepted Health Care"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_presentation_text"
-        app:layout_constraintTop_toBottomOf="@+id/tv_phone_number" />
+        <TextView
+            android:id="@+id/tv_presentation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/doctor_presentation"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_doctor_photo"
+            app:layout_constraintTop_toBottomOf="@+id/iv_doctor_photo" />
 
-    <TextView
-        android:id="@+id/tv_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Address:"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/iv_amil"
-        app:layout_constraintTop_toBottomOf="@+id/iv_amil" />
+        <TextView
+            android:id="@+id/tv_presentation_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_presentation"
+            app:layout_constraintTop_toBottomOf="@+id/tv_presentation"
+            tools:text="Doctor X is gratuated in Y university and is a specialist in saphenous vein surgery. " />
 
-    <TextView
-        android:id="@+id/tv_address_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Rua Gilberto Laranjeira, 56 - Japiim - Manaus"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_address"
-        app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+        <TextView
+            android:id="@+id/tv_accepted_health_care"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/accepted_health_care"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="@+id/tv_presentation_text"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone_number" />
 
-    <Button
-        android:id="@+id/button_schedule_appointment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:elevation="0dp"
-        android:text="Schedule Appointment with Doctor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_distance" />
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/address"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="@+id/iv_amil"
+            app:layout_constraintTop_toBottomOf="@+id/iv_amil" />
 
-    <TextView
-        android:id="@+id/tv_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Calculated Distance: 7.7 Km"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_address_text"
-        app:layout_constraintTop_toBottomOf="@+id/tv_address_text" />
+        <TextView
+            android:id="@+id/tv_address_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_address"
+            app:layout_constraintTop_toBottomOf="@+id/tv_address"
+            tools:text="Rua Gilberto Laranjeira, 56 - Japiim - Manaus" />
 
-    <TextView
-        android:id="@+id/tv_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="(92) 98766-4258"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_presentation_text"
-        app:layout_constraintTop_toBottomOf="@+id/tv_presentation_text" />
+        <Button
+            android:id="@+id/button_schedule_appointment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:elevation="0dp"
+            android:text="@string/schedule_appoiontment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_distance" />
 
-    <ImageView
-        android:id="@+id/iv_amil"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_accepted_health_care"
-        app:layout_constraintTop_toBottomOf="@+id/tv_accepted_health_care"
-        app:srcCompat="@drawable/health_care_amil" />
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:text="Calculated Distance: 7.7 Km"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="@+id/tv_address_text"
+            app:layout_constraintTop_toBottomOf="@+id/tv_address_text" />
 
-    <ImageView
-        android:id="@+id/iv_bradesco"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/iv_amil"
-        app:layout_constraintTop_toTopOf="@+id/iv_amil"
-        app:srcCompat="@drawable/health_care_bradesco" />
+        <ImageView
+            android:id="@+id/iv_get_directions"
+            android:layout_width="40dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_distance"
+            app:layout_constraintStart_toEndOf="@+id/tv_distance"
+            app:layout_constraintTop_toBottomOf="@+id/tv_distance"
+            app:srcCompat="@drawable/directions" />
 
-    <ImageView
-        android:id="@+id/iv_hapvida"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/iv_bradesco"
-        app:layout_constraintTop_toTopOf="@+id/iv_bradesco"
-        app:srcCompat="@drawable/health_care_hapvida" />
+        <TextView
+            android:id="@+id/tv_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="(92) 98766-4258"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_presentation_text"
+            app:layout_constraintTop_toBottomOf="@+id/tv_presentation_text" />
 
-    <ImageView
-        android:id="@+id/iv_prevent"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/iv_hapvida"
-        app:layout_constraintTop_toTopOf="@+id/iv_hapvida"
-        app:srcCompat="@drawable/health_care_preventsenior" />
+        <ImageView
+            android:id="@+id/iv_amil"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_accepted_health_care"
+            app:layout_constraintTop_toBottomOf="@+id/tv_accepted_health_care"
+            app:srcCompat="@drawable/health_care_amil"
+            android:contentDescription="@string/amil_health_care" />
 
-    <ImageView
-        android:id="@+id/iv_sulamerica"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/iv_prevent"
-        app:layout_constraintTop_toTopOf="@+id/iv_prevent"
-        app:srcCompat="@drawable/health_care_sulamerica" />
+        <ImageView
+            android:id="@+id/iv_bradesco"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_amil"
+            app:layout_constraintTop_toTopOf="@+id/iv_amil"
+            app:srcCompat="@drawable/health_care_bradesco"
+            android:contentDescription="@string/bradesco_health_care" />
 
-    <ImageView
-        android:id="@+id/iv_unimed"
-        android:layout_width="40dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/iv_sulamerica"
-        app:layout_constraintTop_toTopOf="@+id/iv_sulamerica"
-        app:srcCompat="@drawable/health_care_unimed" />
+        <ImageView
+            android:id="@+id/iv_hapvida"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_bradesco"
+            app:layout_constraintTop_toTopOf="@+id/iv_bradesco"
+            app:srcCompat="@drawable/health_care_hapvida"
+            android:contentDescription="@string/hapvida_health_care" />
 
-    <TextView
-        android:id="@+id/tv_waiting_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_specialty"
-        app:layout_constraintTop_toBottomOf="@+id/tv_specialty"
-        tools:text="Disponível em 10 dias" />
+        <ImageView
+            android:id="@+id/iv_prevent"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_hapvida"
+            app:layout_constraintTop_toTopOf="@+id/iv_hapvida"
+            app:srcCompat="@drawable/health_care_preventsenior"
+            android:contentDescription="@string/prevent_health_care" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_doctor_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_doctor_name"
-        app:srcCompat="@drawable/star" />
+        <ImageView
+            android:id="@+id/iv_sulamerica"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_prevent"
+            app:layout_constraintTop_toTopOf="@+id/iv_prevent"
+            app:srcCompat="@drawable/health_care_sulamerica"
+            android:contentDescription="@string/sulamerica_health_care" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_unimed"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_sulamerica"
+            app:layout_constraintTop_toTopOf="@+id/iv_sulamerica"
+            app:srcCompat="@drawable/health_care_unimed"
+            android:contentDescription="@string/unimed_health_care" />
+
+        <TextView
+            android:id="@+id/tv_waiting_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toStartOf="@+id/tv_specialty"
+            app:layout_constraintTop_toBottomOf="@+id/tv_specialty"
+            tools:text="Disponível em 10 dias" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_doctor_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_doctor_name"
+            app:srcCompat="@drawable/star"
+            android:contentDescription="@string/doctor_avarage_rate" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

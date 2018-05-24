@@ -70,4 +70,12 @@
     <string name="friday">Sexta-Feira</string>
     <string name="saturday">Sábado</string>
     <string name="sunday">Domingo</string>
+    <string name="doctor_photo">Doctor Photo</string>
+    <string name="amil_health_care">Amil Health Care</string>
+    <string name="bradesco_health_care">Bradesco Health Care</string>
+    <string name="hapvida_health_care">Hapvida Health Care</string>
+    <string name="prevent_health_care">Prevent Senior Health Care</string>
+    <string name="sulamerica_health_care">SulAmerica Health Care</string>
+    <string name="unimed_health_care">Unimed Health Care</string>
+    <string name="doctor_avarage_rate">Doctor Avarage Rate</string>
 </resources>

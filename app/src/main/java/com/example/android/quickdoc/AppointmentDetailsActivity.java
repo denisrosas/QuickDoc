@@ -85,6 +85,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
     @BindView(R.id.iv_prevent) ImageView imageViewPrevent;
     @BindView(R.id.iv_sulamerica) ImageView imageViewSulamerica;
     @BindView(R.id.iv_unimed) ImageView imageViewUnimed;
+    @BindView(R.id.iv_directions) ImageView imageViewDirections;
 
     @BindView(R.id.button_cancel_appointment) Button buttonCancelAppointment;
 
@@ -119,23 +120,14 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         textViewAddressText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double latitude = doctorDetailsToUser.getAddressLat();
-                double longitude = doctorDetailsToUser.getAddressLng();
-                String label;
+                callMapsActivity(doctorDetailsToUser);
+            }
+        });
 
-                if(Locale.getDefault().getLanguage().matches("pt")) {
-                    label = getString(R.string.office)+"do(a) "+doctorDetailsToUser.getName();
-                } else {
-                    label = doctorDetailsToUser.getName()+"'s "+getString(R.string.office);
-                }
-                String uriBegin = "geo:" + latitude + "," + longitude;
-                String query = latitude + "," + longitude + "(" + label + ")";
-                String encodedQuery = Uri.encode(query);
-                String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
-                Uri uri = Uri.parse(uriString);
-                Log.i("denis", "URI pra abrir o Maps: "+uri.toString());
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+        imageViewDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callMapsActivity(doctorDetailsToUser);
             }
         });
 
@@ -159,6 +151,25 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
                 showConfirmationDialog();
             }
         });
+    }
+
+    private void callMapsActivity(final DoctorDetailsToUser doctorDetailsToUser) {
+        double latitude = doctorDetailsToUser.getAddressLat();
+        double longitude = doctorDetailsToUser.getAddressLng();
+        String label;
+
+        if(Locale.getDefault().getLanguage().matches("pt")) {
+            label = getString(R.string.office)+"do(a) "+doctorDetailsToUser.getName();
+        } else {
+            label = doctorDetailsToUser.getName()+"'s "+getString(R.string.office);
+        }
+        String uriBegin = "geo:" + latitude + "," + longitude;
+        String query = latitude + "," + longitude + "(" + label + ")";
+        String encodedQuery = Uri.encode(query);
+        String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+        Uri uri = Uri.parse(uriString);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     private void startFirebaseListener(final UserAppointment userAppointment) {
@@ -258,7 +269,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         //if we can't get the location, then getDistanceToDoctor will return -1
         String discanteKm;
         if(doctorDetailsToUser.getDistanceToDoctor()>=0)
-            discanteKm = getString(R.string.distance)+": "+Float.toString(doctorDetailsToUser.getDistanceToDoctor())+" "+getString(R.string.km);
+            discanteKm = getString(R.string.distance)+": "+df.format(doctorDetailsToUser.getDistanceToDoctor())+" "+getString(R.string.km);
         else
             discanteKm = "-";
 

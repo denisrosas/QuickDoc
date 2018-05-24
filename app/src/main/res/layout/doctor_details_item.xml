@@ -17,8 +17,7 @@
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/doctor_small_default"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/doctor_photo" />
 
     <TextView
         android:id="@+id/tv_doctor_name"
