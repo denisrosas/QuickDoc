@@ -131,9 +131,10 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.show_next_appoint_widget);
         int index = 0;
-        Intent[] intentArray = new Intent[5];
+        Intent intent;
         PendingIntent pendingIntent;
 
+        //iterate by all textViews in the loop for setting the text and pendingIntent
         for(UserAppointment userAppointment : userAppointments) {
             //Example of text: "Cardiologist - 25/03/2018 - 10:30"
 
@@ -146,11 +147,15 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
             views.setTextViewText(textViewIds[index], appointmentText);
 
             //create the intent, wrap a pending intent around it and create a onClickListner
-            intentArray[index] = new Intent(context, AppointmentDetailsActivity.class);
-            intentArray[index].putExtra(USER_APPOINTMENT, userAppointment);
-            intentArray[index].putExtra(CHILD_KEY, childKeys.get(index));
-            intentArray[index].setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            pendingIntent = PendingIntent.getActivity(context, 0, intentArray[index], PendingIntent.FLAG_UPDATE_CURRENT);
+            intent = new Intent(context, AppointmentDetailsActivity.class);
+            intent.putExtra(USER_APPOINTMENT, userAppointment);
+            intent.putExtra(CHILD_KEY, childKeys.get(index));
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setAction(Long.toString(System.currentTimeMillis()));
+
+            //wrap the Intent inside a Pending Intent. The FLAG_CANCEL_CURRENT is necessary, or it will
+            // run the PendingIntent of the last loop iteration
+            pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             views.setOnClickPendingIntent(textViewIds[index], pendingIntent);
 
             index++;
