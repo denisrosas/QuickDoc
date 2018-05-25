@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/item_sort_by_distance"
-        android:title="Sort by distance" />
+        android:title="@string/sort_by_distance" />
     <item
         android:id="@+id/item_sort_by_rating"
-        android:title="Sort by rating" />
+        android:title="@string/sort_by_rating" />
     <item
         android:id="@+id/item_sort_by_waiting_days"
-        android:title="Sort by waiting days" />
+        android:title="@string/sort_by_waiting_days" />
     <item
         android:id="@+id/item_sort_by_name"
-        android:title="Sort by name" />
+        android:title="@string/sort_by_name" />
 </menu>

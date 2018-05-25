@@ -55,6 +55,11 @@ public class ReviewAppointmentActivity extends AppCompatActivity {
     private static final String FIREBASE_CHILD_REVIEWED = "reviewed";
     private static final String CHILD_KEY = "CHILD_KEY";
 
+    //
+    private static final String REVIEW_TITLE = "REVIEW_TITLE";
+    private static final String REVIEW_TEXT = "REVIEW_TEXT";
+    private static final String REVIEW_GRADE = "REVIEW_GRADE";
+
     private static final String PHOTOS_FOLDER = "photos";
     private static final String BIG_PHOTO_FILENAME_PREFIX = "doctor_big";
     private static final String PHOTO_EXTENSION = ".jpg";
@@ -281,5 +286,23 @@ public class ReviewAppointmentActivity extends AppCompatActivity {
 
         if((databaseReference!=null)&&(valueEventListener!=null))
             databaseReference.removeEventListener(valueEventListener);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(REVIEW_TITLE, editTextReviewTitle.getText().toString());
+        outState.putString(REVIEW_TEXT, editTextReviewText.getText().toString());
+        outState.putString(REVIEW_GRADE, textViewGrade.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        editTextReviewTitle.setText(savedInstanceState.getString(REVIEW_TITLE));
+        editTextReviewText.setText(savedInstanceState.getString(REVIEW_TEXT));
+        textViewGrade.setText(savedInstanceState.getString(REVIEW_GRADE));
+
     }
 }

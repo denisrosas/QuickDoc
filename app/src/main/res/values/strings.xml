@@ -85,4 +85,8 @@
     <string name="star_image">Star image</string>
     <string name="directions_to_address">Directions to address</string>
     <string name="phone_image">Phone Image</string>
+    <string name="sort_by_distance">Sort by distance</string>
+    <string name="sort_by_rating">Sort by rating</string>
+    <string name="sort_by_waiting_days">Sort by waiting days</string>
+    <string name="sort_by_name">Sort by name</string>
 </resources>
