@@ -54,6 +54,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     @BindView(R.id.iv_sulamerica) ImageView imageViewSulamerica;
     @BindView(R.id.iv_unimed) ImageView imageViewUnimed;
     @BindView(R.id.iv_get_directions) ImageView imageViewGetDirections;
+    @BindView(R.id.iv_phone) ImageView imageViewPhone;
 
     @BindView(R.id.button_schedule_appointment) Button buttonScheduleAppointment;
 
@@ -166,6 +167,13 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                 intent.putExtra(DOCTOR_DETAILS, doctorDetailsToUser);
                 intent.putExtra(SPECIALTY_KEY, specialtyKey);
                 startActivity(intent);
+            }
+        });
+
+        imageViewPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callDialerActivity(doctorDetailsToUser);
             }
         });
     }

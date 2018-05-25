@@ -86,6 +86,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
     @BindView(R.id.iv_sulamerica) ImageView imageViewSulamerica;
     @BindView(R.id.iv_unimed) ImageView imageViewUnimed;
     @BindView(R.id.iv_directions) ImageView imageViewDirections;
+    @BindView(R.id.iv_phone) ImageView imageViewPhone;
 
     @BindView(R.id.button_cancel_appointment) Button buttonCancelAppointment;
 
@@ -106,9 +107,6 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         //get variable from intent
         userAppointment = (UserAppointment) getIntent().getSerializableExtra(USER_APPOINTMENT);
         childAppointmentKey = getIntent().getStringExtra(CHILD_KEY);
-
-        //
-        setOnClickListeners(doctorDetails, userAppointment.getSpecialty());
 
         //Get Doctor Details from Firebase
         startFirebaseListener(userAppointment);
@@ -151,6 +149,18 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
                 showConfirmationDialog();
             }
         });
+
+        imageViewPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // It open the dialer app and allow user to call the number manually
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                // Send phone number to intent as data
+                intent.setData(Uri.parse("tel:" + doctorDetailsToUser.getPhoneNumber()));
+                // Start the dialer app activity with number
+                startActivity(intent);
+            }
+        });
     }
 
     private void callMapsActivity(final DoctorDetailsToUser doctorDetailsToUser) {
@@ -191,6 +201,8 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
                     setFirebaseDoctorPhoto(userAppointment.getSpecialty(), userAppointment.getDoctorId());
 
                     setTextViews(doctorDetails, userAppointment);
+
+                    setOnClickListeners(doctorDetails, userAppointment.getSpecialty());
 
                     hideUnsupportedHealthPlanes(doctorDetails);
                 }
