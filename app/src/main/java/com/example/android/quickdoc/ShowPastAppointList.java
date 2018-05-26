@@ -73,6 +73,7 @@ public class ShowPastAppointList extends AppCompatActivity {
                 for(DataSnapshot childSnapshot : dataSnapshot.getChildren()){
                     UserAppointment userAppointment = childSnapshot.getValue(UserAppointment.class);
                     //check if the appointment is already reviewed. If is, don't display in the list
+                    assert userAppointment != null;
                     if(!userAppointment.isReviewed()) {
                         userAppointments.add(userAppointment);
                         childKeys.add(childSnapshot.getKey());

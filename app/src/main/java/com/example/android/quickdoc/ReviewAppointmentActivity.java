@@ -33,6 +33,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -131,8 +133,10 @@ public class ReviewAppointmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 float grade = Float.valueOf((String) textViewGrade.getText());
-                if(grade<5)
-                    textViewGrade.setText(Float.toString((float) (grade+0.5)));
+                if(grade<5) {
+                    DecimalFormat df = new DecimalFormat("0.0");
+                    textViewGrade.setText(df.format((float) (grade + 0.5)));
+                }
                 else
                     Toast.makeText(getApplicationContext(), "Max grade is 5", Toast.LENGTH_LONG).show();
             }
@@ -142,8 +146,10 @@ public class ReviewAppointmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 float grade = Float.valueOf((String) textViewGrade.getText());
-                if(grade>0)
-                    textViewGrade.setText(Float.toString((float) (grade - 0.5)));
+                if(grade>0) {
+                    DecimalFormat df = new DecimalFormat("0.0");
+                    textViewGrade.setText(df.format((float) (grade - 0.5)));
+                }
                 else
                     Toast.makeText(getApplicationContext(), "Grade cannot be lower than 0", Toast.LENGTH_LONG).show();
 

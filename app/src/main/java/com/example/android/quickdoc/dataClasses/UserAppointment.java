@@ -2,10 +2,6 @@ package com.example.android.quickdoc.dataClasses;
 
 import java.io.Serializable;
 
-/**
- * Created by Denis on 01/05/2018.
- */
-
 public class UserAppointment implements Serializable {
 
     private String date;

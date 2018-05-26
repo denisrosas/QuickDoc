@@ -217,9 +217,9 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(valueEventListener);
     }
 
+    /** If has permission, returns the distance to the doctor in Kms
+     * */
     private float calculateDistance(float lat, float lng) {
-        /** If has permission, returns the distance to the doctor in Kms
-         * */
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if ((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
@@ -228,12 +228,15 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
             return -1;
 
         } else {
-            Location locationUser = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
-            Location locationDoctor = new Location("Doctor's Office");
-            locationDoctor.setLatitude(lat);
-            locationDoctor.setLongitude(lng);
-            if(locationUser!=null)
-                return (locationUser.distanceTo(locationDoctor) / 1000); //meters to km
+            Location locationUser = null;
+            if (locationManager != null) {
+                locationUser = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
+                Location locationDoctor = new Location("Doctor's Office");
+                locationDoctor.setLatitude(lat);
+                locationDoctor.setLongitude(lng);
+                if(locationUser!=null)
+                    return (locationUser.distanceTo(locationDoctor) / 1000); //meters to km
+            }
 
             return -1;
         }

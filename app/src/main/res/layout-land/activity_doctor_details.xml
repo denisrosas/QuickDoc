@@ -152,6 +152,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_distance"
             app:layout_constraintStart_toEndOf="@+id/tv_distance"
             app:layout_constraintTop_toBottomOf="@+id/tv_distance"
+            android:contentDescription="@string/directions_to_address"
             app:srcCompat="@drawable/directions" />
 
         <TextView
@@ -266,6 +267,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_phone_number"
             app:layout_constraintEnd_toStartOf="@+id/view_line"
             app:layout_constraintTop_toBottomOf="@+id/tv_phone_number"
+            android:contentDescription="@string/phone_image_dial_to_number"
             app:srcCompat="@drawable/phone" />
 
     </android.support.constraint.ConstraintLayout>

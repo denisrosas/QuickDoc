@@ -6,7 +6,6 @@
     <string name="choose_an_speciallity_to_search_for">Selecione uma especialidade médica</string>
     <string name="firebase_sign_out">Deslogar</string>
     <string name="select_a_specialty">Selecione uma especialidade médica:</string>
-    <string name="unknown">Desconhecido</string>
     <string name="km">Km</string>
     <string name="days">dias</string>
     <string name="user_not_logged_in">Usuário não esta logado</string>
@@ -46,15 +45,14 @@
     <string name="no">Não</string>
     <string name="on">no dia</string>
     <string name="at">às</string>
-    <string name="alert_prev_day_of_tomorrow">Não é possivel agendar uma consulta em uma data anterior a amanhã.</string>
+    <string name="alert_prev_day_of_tomorrow">Não é possível agendar uma consulta em uma data anterior a amanhã.</string>
     <string name="alert_next_day_too_far">Não é possível agendar uma consulta a mais de 90 dias da data de hoje.</string>
     <string name="see_your_next_appointments_below">Veja suas próximas consultas médicas abaixo:</string>
-    <string name="no_appointments_for_this_user">Nenhuma consulta disponivel</string>
+    <string name="no_appointments_for_this_user">Nenhuma consulta disponível</string>
     <string name="cancel_appoiontment">Cancelar Consulta Médica</string>
     <string name="dialog_message_confirm_cancel">Gostaria de cancelar a consulta?</string>
     <string name="review_title">Título</string>
-    <string name="hint_review_text">Escreva sua avaliação aqui</string>
-    <string name="type_your_review_here">Digite sua avaliação aqui.</string>
+    <string name="type_your_review_here">Escreva sua avaliação aqui.</string>
     <string name="start_review_grade">2.5</string>
     <string name="grade">Avaliação</string>
     <string name="picture_of_the_doctor">Foto do médico</string>
@@ -80,9 +78,11 @@
     <string name="doctor_avarage_rate">Avaliação Média do médico</string>
     <string name="star_image">Imagem de estrela</string>
     <string name="directions_to_address">Direções para o endereço</string>
-    <string name="phone_image">Imagem de um telefone</string>
     <string name="sort_by_distance">Ordenar por Distância</string>
     <string name="sort_by_rating">Ordenar por avaliação</string>
     <string name="sort_by_waiting_days">Ordenar por dias de espera</string>
     <string name="sort_by_name">Ordenar por nome</string>
+    <string name="phone_image_dial_to_number">Imagem de um telefone. Ligar para consultório médico.</string>
+    <string name="image_left_arrow_description">Imagem de seta para esquerda. Selecionar dia anterior.</string>
+    <string name="image_right_arrow_description">Imagem de seta para direita. Selecionar dia seguinte.</string>
 </resources>

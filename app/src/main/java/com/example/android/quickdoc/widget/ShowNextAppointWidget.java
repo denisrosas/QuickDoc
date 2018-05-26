@@ -126,7 +126,7 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
             , ArrayList<String> childKeys, AppWidgetManager appWidgetManager, int appWidgetId) {
 
         //first we prepare the texts to be displayed in the textviews of the Listview
-        String appointmentText = "";
+        String appointmentText;
         int[] textViewIds = getTextViewIds();
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.show_next_appoint_widget);

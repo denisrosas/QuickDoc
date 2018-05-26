@@ -143,7 +143,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int doctorId;
-                int waitingDays = 0;
+                int waitingDays;
                 Calendar currentDate;
 
                 //unfortunately this loop will have a long time
@@ -166,9 +166,9 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
 
                             try {
                                 //if the currentDate agenda is full, we increase waitingDays
-                                if(childSnapshotDoc.child(childkey).child(FIREBASE_CHILD_FULLDAY).getValue(boolean.class))
+                                if(childSnapshotDoc.child(childkey).child(FIREBASE_CHILD_FULLDAY).getValue(boolean.class)) {
                                     waitingDays++;
-                                else
+                                } else
                                     //if the day is not full, means we found the next day with a free appointment
                                     break;
 

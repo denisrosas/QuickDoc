@@ -2,10 +2,6 @@ package com.example.android.quickdoc.dataClasses;
 
 import java.util.ArrayList;
 
-/**
- * Created by Denis on 05/05/2018.
- */
-
 public class SpecialtyKeys {
 
     private ArrayList<String> keysList;

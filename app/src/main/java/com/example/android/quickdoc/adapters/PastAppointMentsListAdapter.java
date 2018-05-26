@@ -50,6 +50,7 @@ public class PastAppointMentsListAdapter extends RecyclerView.Adapter<PastAppoin
                 Intent intent = new Intent(context, ReviewAppointmentActivity.class);
                 intent.putExtra(USER_APPOINTMENT,userAppointmentsList.get(holder.getAdapterPosition()));
                 intent.putExtra(CHILD_KEY, childKeys.get(holder.getAdapterPosition()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

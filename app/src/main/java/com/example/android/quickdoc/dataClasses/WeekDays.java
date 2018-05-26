@@ -4,10 +4,6 @@ import android.content.Context;
 
 import com.example.android.quickdoc.R;
 
-/**
- * Created by Denis on 06/05/2018.
- */
-
 public class WeekDays {
 
     public static String getMonthName(int weekDayId, Context context){

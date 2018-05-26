@@ -1,9 +1,5 @@
 package com.example.android.quickdoc.dataClasses;
 
-/**
- * Created by Denis on 06/05/2018.
- */
-
 public class AppointmentTime {
 
     public static String getTimeFromIndex(int horaryId){
