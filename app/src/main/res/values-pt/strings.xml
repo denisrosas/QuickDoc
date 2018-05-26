@@ -85,4 +85,6 @@
     <string name="phone_image_dial_to_number">Imagem de um telefone. Ligar para consultório médico.</string>
     <string name="image_left_arrow_description">Imagem de seta para esquerda. Selecionar dia anterior.</string>
     <string name="image_right_arrow_description">Imagem de seta para direita. Selecionar dia seguinte.</string>
+    <string name="plus_sign">+</string>
+    <string name="minus_sign">-</string>
 </resources>

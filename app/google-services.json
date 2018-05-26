@@ -15,12 +15,24 @@
       },
       "oauth_client": [
         {
+          "client_id": "727727193919-qh8ahesunf41eaka23accjk60higg8gv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.quickdoc",
+            "certificate_hash": "44e0984405d1d1949eff9dc28814cedcf18ba2a8"
+          }
+        },
+        {
           "client_id": "727727193919-4fgda69ppqn9on5jadqrrg5e38844328.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.android.quickdoc",
             "certificate_hash": "be8a08ea748467e6a8aca4a5f871e8f51f36fee4"
           }
+        },
+        {
+          "client_id": "727727193919-0vt998k91ii5ojcpohuc310hivl0q5bv.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "727727193919-0vt998k91ii5ojcpohuc310hivl0q5bv.apps.googleusercontent.com",
