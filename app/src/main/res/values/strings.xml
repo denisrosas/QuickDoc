@@ -63,7 +63,7 @@
     <string name="save_review_confirmation_dialog">Review saved successfully on Database</string>
     <!--<string name="appwidget_text">EXAMPLE</string>-->
     <!--<string name="add_widget">Add widget</string>-->
-    <string name="doctor_list_explanation">Veja abaixo a lista de médicos encontrados</string>
+    <string name="doctor_list_explanation">See below the list of Doctors found</string>
     <string name="available_in">Available in</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
