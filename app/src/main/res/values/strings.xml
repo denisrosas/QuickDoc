@@ -6,7 +6,7 @@
     <string name="choose_an_speciallity_to_search_for">Choose an speciallity to search for</string>
     <string name="firebase_sign_out">Sign Out</string>
     <string name="select_a_specialty">Select a Doctor\'s Specialty:</string>
-    <string name="km">Km</string>
+    <string name="km" translatable="false">Km</string>
     <string name="days">days</string>
     <string name="user_not_logged_in">User is not logged-in</string>
     <string name="fail_to_connect">Failed to connect to server. Please check your internet connection.</string>
@@ -53,9 +53,9 @@
     <string name="dialog_message_confirm_cancel">Would you like to cancel this appointment?</string>
     <string name="review_title">Review Title</string>
     <string name="type_your_review_here">Type your review here</string>
-    <string name="plus_sign">+</string>
-    <string name="minus_sign">-</string>
-    <string name="start_review_grade">2.5</string>
+    <string name="plus_sign" translatable="false">+</string>
+    <string name="minus_sign" translatable="false">-</string>
+    <string name="start_review_grade" translatable="false">2.5</string>
     <string name="grade">Grade</string>
     <string name="picture_of_the_doctor">Picture of the Doctor</string>
     <string name="register_doctor_review">Register Doctor Review</string>
@@ -89,4 +89,7 @@
     <string name="phone_image_dial_to_number">Phone Image. Dial to Doctor\'s office</string>
     <string name="image_left_arrow_description">Image of left arrow. Select the previous day</string>
     <string name="image_right_arrow_description">Image of right arrow. Select the next day</string>
+    <string name="date_format" translatable="false">yyyy-MM-dd</string>
+    <string name="date_separator" translatable="false">-</string>
+    <string name="slash" translatable="false">/</string>
 </resources>

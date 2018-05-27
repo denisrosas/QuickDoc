@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 import com.example.android.quickdoc.AppointmentDetailsActivity;
 import com.example.android.quickdoc.R;
 import com.example.android.quickdoc.dataClasses.AppointmentTime;
+import com.example.android.quickdoc.dataClasses.DateUtils;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.example.android.quickdoc.dataClasses.UserAppointment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -87,7 +88,7 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
 
         //path example: /user_appointment/UserId/ - get just the next 5 appointments so Widget is not too big
         Query firebaseQuery = firebaseDatabase.getReference().child("user_appointments")
-                .child(firebaseUserId).orderByChild("date").startAt(getStringDate(today))
+                .child(firebaseUserId).orderByChild("date").startAt(getStringDate(today, context))
                 .limitToFirst(MAX_APPOINTMENS);
 
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -108,7 +109,7 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
 
                 } else{
                     Log.i("denis", "detaSnapshot exists false");
-                    //TODO - adicionar um textview dizendo que nao tem consultas proximas no widget
+                    updateWidgetListview(context, userAppointments, childKeys, appWidgetManager, appWidgetId);
                 }
 
             }
@@ -140,7 +141,7 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
 
             //set the text of textview
             appointmentText = SpecialtyNames.getSpecialtyName(context, userAppointment.getSpecialty())
-                    +" - "+getAdaptedDate(userAppointment.getDate())
+                    +" - "+ DateUtils.getAdaptedDate(userAppointment.getDate(),context)
                     +" - "+ AppointmentTime.getTimeFromIndex(userAppointment.getTime());
 
             views.setViewVisibility(textViewIds[index], View.VISIBLE);
@@ -158,6 +159,12 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
             pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             views.setOnClickPendingIntent(textViewIds[index], pendingIntent);
 
+            index++;
+        }
+
+        if(userAppointments.size()==0){
+            views.setViewVisibility(textViewIds[index], View.VISIBLE);
+            views.setTextViewText(textViewIds[index], context.getText(R.string.no_appointments_for_this_user));
             index++;
         }
 
@@ -181,24 +188,12 @@ public class ShowNextAppointWidget extends AppWidgetProvider {
         return textViewIds;
     }
 
-    private static String getStringDate(Calendar calendar) {
+    private static String getStringDate(Calendar calendar, Context context) {
         Date date = calendar.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(context.getString(R.string.date_format), Locale.ENGLISH);
         Log.i("denis", "Date format: "+dateFormat.format(date));
         return dateFormat.format(date);
     }
 
-    private static String getAdaptedDate(String date) {
-
-        if(Locale.getDefault().getLanguage().matches("pt")){
-            String[] dateVector = date.split("-");
-            String year = dateVector[0];
-            String month = dateVector[1];
-            String day = dateVector[2];
-            return day+"/"+month+"/"+year;
-        }
-
-        return date;
-    }
 }
 

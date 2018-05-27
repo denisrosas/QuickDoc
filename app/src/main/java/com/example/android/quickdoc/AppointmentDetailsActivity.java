@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.quickdoc.dataClasses.AppointmentTime;
+import com.example.android.quickdoc.dataClasses.DateUtils;
 import com.example.android.quickdoc.dataClasses.DoctorDetails;
 import com.example.android.quickdoc.dataClasses.DoctorDetailsToUser;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
@@ -274,7 +275,7 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
         DecimalFormat df = new DecimalFormat("0.0");
         textViewAvrgReviews.setText(df.format(doctorDetailsToUser.getAvaregeReviews()));
 
-        textViewDate.setText(getAdaptedDate(userAppointment.getDate()));
+        textViewDate.setText(DateUtils.getAdaptedDate(userAppointment.getDate(),this));
         textViewTime.setText(AppointmentTime.getTimeFromIndex(userAppointment.getTime()));
 
         textViewAccHealthCare.setText(getString(R.string.accepted_health_care));
@@ -353,18 +354,6 @@ public class AppointmentDetailsActivity extends AppCompatActivity {
 
     }
 
-    private String getAdaptedDate(String date) {
-
-        if(Locale.getDefault().getLanguage().matches("pt")){
-            String[] dateVector = date.split("-");
-            String year = dateVector[0];
-            String month = dateVector[1];
-            String day = dateVector[2];
-            return day+"/"+month+"/"+year;
-        }
-
-        return date;
-    }
 
     /** Gets the image from Firebase and set in the imageView using Picasso*/
     private void setFirebaseDoctorPhoto(String specialtyKey, int doctorId) {

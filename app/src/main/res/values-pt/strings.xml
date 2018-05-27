@@ -6,7 +6,6 @@
     <string name="choose_an_speciallity_to_search_for">Selecione uma especialidade médica</string>
     <string name="firebase_sign_out">Deslogar</string>
     <string name="select_a_specialty">Selecione uma especialidade médica:</string>
-    <string name="km">Km</string>
     <string name="days">dias</string>
     <string name="user_not_logged_in">Usuário não esta logado</string>
     <string name="fail_to_connect">Falha ao conectar com o servidor. Por favor verifique sua conexão de internet.</string>
@@ -53,7 +52,6 @@
     <string name="dialog_message_confirm_cancel">Gostaria de cancelar a consulta?</string>
     <string name="review_title">Título</string>
     <string name="type_your_review_here">Escreva sua avaliação aqui.</string>
-    <string name="start_review_grade">2.5</string>
     <string name="grade">Avaliação</string>
     <string name="picture_of_the_doctor">Foto do médico</string>
     <string name="register_doctor_review">Registrar avaliação ao médico</string>
@@ -85,6 +83,4 @@
     <string name="phone_image_dial_to_number">Imagem de um telefone. Ligar para consultório médico.</string>
     <string name="image_left_arrow_description">Imagem de seta para esquerda. Selecionar dia anterior.</string>
     <string name="image_right_arrow_description">Imagem de seta para direita. Selecionar dia seguinte.</string>
-    <string name="plus_sign">+</string>
-    <string name="minus_sign">-</string>
 </resources>

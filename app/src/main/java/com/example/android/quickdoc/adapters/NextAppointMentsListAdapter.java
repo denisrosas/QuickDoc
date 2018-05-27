@@ -13,11 +13,11 @@ import android.widget.TextView;
 import com.example.android.quickdoc.AppointmentDetailsActivity;
 import com.example.android.quickdoc.R;
 import com.example.android.quickdoc.dataClasses.AppointmentTime;
+import com.example.android.quickdoc.dataClasses.DateUtils;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.example.android.quickdoc.dataClasses.UserAppointment;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class NextAppointMentsListAdapter extends RecyclerView.Adapter<NextAppointMentsListAdapter.NextAppViewHolder>{
 
@@ -55,7 +55,7 @@ public class NextAppointMentsListAdapter extends RecyclerView.Adapter<NextAppoin
             }
         });
 
-        String localDate = getAdaptedDate(userAppointmentsList.get(holder.getAdapterPosition()).getDate());
+        String localDate = DateUtils.getAdaptedDate(userAppointmentsList.get(holder.getAdapterPosition()).getDate(),context);
         holder.date.setText(localDate);
 
         holder.time.setText(AppointmentTime.getTimeFromIndex(userAppointmentsList.get(holder.getAdapterPosition()).getTime()));
@@ -64,18 +64,6 @@ public class NextAppointMentsListAdapter extends RecyclerView.Adapter<NextAppoin
 
     }
 
-    private String getAdaptedDate(String date) {
-
-        if(Locale.getDefault().getLanguage().matches("pt")){
-            String[] dateVector = date.split("-");
-            String year = dateVector[0];
-            String month = dateVector[1];
-            String day = dateVector[2];
-            return day+"/"+month+"/"+year;
-        }
-
-        return date;
-    }
 
     @Override
     public int getItemCount() {

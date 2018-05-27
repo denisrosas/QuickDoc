@@ -13,11 +13,11 @@ import android.widget.TextView;
 import com.example.android.quickdoc.R;
 import com.example.android.quickdoc.ReviewAppointmentActivity;
 import com.example.android.quickdoc.dataClasses.AppointmentTime;
+import com.example.android.quickdoc.dataClasses.DateUtils;
 import com.example.android.quickdoc.dataClasses.SpecialtyNames;
 import com.example.android.quickdoc.dataClasses.UserAppointment;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class PastAppointMentsListAdapter extends RecyclerView.Adapter<PastAppointMentsListAdapter.NextAppViewHolder>{
 
@@ -55,26 +55,13 @@ public class PastAppointMentsListAdapter extends RecyclerView.Adapter<PastAppoin
             }
         });
 
-        String localDate = getAdaptedDate(userAppointmentsList.get(holder.getAdapterPosition()).getDate());
+        String localDate = DateUtils.getAdaptedDate(userAppointmentsList.get(holder.getAdapterPosition()).getDate(), context);
         holder.date.setText(localDate);
 
         holder.time.setText(AppointmentTime.getTimeFromIndex(userAppointmentsList.get(holder.getAdapterPosition()).getTime()));
 
         holder.specialty.setText(SpecialtyNames.getSpecialtyName(context, userAppointmentsList.get(position).getSpecialty()));
 
-    }
-
-    private String getAdaptedDate(String date) {
-
-        if(Locale.getDefault().getLanguage().matches("pt")){
-            String[] dateVector = date.split("-");
-            String year = dateVector[0];
-            String month = dateVector[1];
-            String day = dateVector[2];
-            return day+"/"+month+"/"+year;
-        }
-
-        return date;
     }
 
     @Override

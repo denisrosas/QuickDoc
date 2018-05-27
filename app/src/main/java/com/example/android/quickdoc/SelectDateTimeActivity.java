@@ -56,6 +56,7 @@ public class SelectDateTimeActivity extends AppCompatActivity {
     private static final int MAX_WAITING_DAYS_SCHED = 90;
 
     Calendar currentDate = Calendar.getInstance();
+    Calendar startingDate;
     String specialtyKey;
     DoctorDetailsToUser doctorDetailsToUser;
     String doctorId;
@@ -85,6 +86,9 @@ public class SelectDateTimeActivity extends AppCompatActivity {
 
         //start currentdate as tomorrow
         setToNextWeekDay();
+        //startingDate will be a reference as the first available date.
+        startingDate = Calendar.getInstance();
+        startingDate.set(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
 
         setDayMonthTextViews();
 
@@ -114,11 +118,18 @@ public class SelectDateTimeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Calendar tomorrow = Calendar.getInstance();
-                tomorrow.add(Calendar.DAY_OF_YEAR, 1);
+                Calendar intededDate = Calendar.getInstance();
+                intededDate.set(currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH));
+                intededDate.add(Calendar.DAY_OF_YEAR, -1);
+
+                while ((intededDate.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY)
+                    ||(intededDate.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY)){
+                    intededDate.add(Calendar.DAY_OF_YEAR, -1);
+                }
 
                 //if the previous day is tomorrow
-                if(convertCalendarToString(currentDate).matches(convertCalendarToString(tomorrow))) {
+                int result = intededDate.compareTo(startingDate);
+                if(result<1) {
                     Toast.makeText(getApplicationContext(), R.string.alert_prev_day_of_tomorrow, Toast.LENGTH_LONG).show();
                 } else{
                     progressBar.setVisibility(View.VISIBLE);
