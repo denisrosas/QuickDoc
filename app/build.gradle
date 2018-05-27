@@ -13,9 +13,9 @@ android {
     signingConfigs {
         config {
             keyAlias 'key0'
-            keyPassword 'UdacityDenisBrasil'
+            keyPassword 'YOUR KEY HERE'
             storeFile file('../Keystore/keystore.jks')
-            storePassword 'UdacityDenisBrasil'
+            storePassword 'YOUR KEY HERE'
         }
     }
     buildTypes {
