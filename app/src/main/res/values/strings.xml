@@ -94,4 +94,15 @@
     <string name="slash" translatable="false">/</string>
     <string name="could_not_get_location">Could not get your location</string>
     <string name="no_past_appointments_found">You already evaluated all your past appointments</string>
+    <string name="cardiologist_key" translatable="false">cardiologist</string>
+    <string name="dermatologist_key" translatable="false">dermatologist</string>
+    <string name="geriatric_key" translatable="false">geriatric</string>
+    <string name="gynecologist_key" translatable="false">gynecologist</string>
+    <string name="nephrologist_key" translatable="false">nephrologist</string>
+    <string name="orthopaedist_key" translatable="false">orthopaedist</string>
+    <string name="ophthalmologist_key" translatable="false">ophthalmologist</string>
+    <string name="oncologist_key" translatable="false">oncologist</string>
+    <string name="pediatrician_key" translatable="false">pediatrician</string>
+    <string name="psychiatrist_key" translatable="false">psychiatrist</string>
+    <string name="urologist_key" translatable="false">urologist</string>
 </resources>

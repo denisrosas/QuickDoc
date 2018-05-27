@@ -88,7 +88,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
 
         //get selected specialty from Intent
         int selectedSpecialtyId = getIntent().getIntExtra(SELECTED_DOCTOR_SPECIALTY, -1);
-        specialtyKey = new SpecialtyKeys().getKeysByPosition(selectedSpecialtyId);
+        specialtyKey = new SpecialtyKeys(this).getKeysByPosition(selectedSpecialtyId);
 
         setTextViews(selectedSpecialtyId);
 
