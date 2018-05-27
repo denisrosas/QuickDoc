@@ -125,9 +125,12 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         textViewDocAddress.setText(getString(R.string.address));
         textViewAddressText.setText(doctorDetailsToUser.getAddressExtended());
 
-        String discanteKm = getString(R.string.distance)+": "+df.format(doctorDetailsToUser.getDistanceToDoctor())+" "+getString(R.string.km);
-        textViewDistance.setText(discanteKm);
-
+        if(doctorDetailsToUser.getDistanceToDoctor()<0){
+            textViewDistance.setText(R.string.minus_sign);
+        } else {
+            String discanteKm = getString(R.string.distance) + ": " + df.format(doctorDetailsToUser.getDistanceToDoctor()) + " " + getString(R.string.km);
+            textViewDistance.setText(discanteKm);
+        }
         textViewPhone.setText(doctorDetailsToUser.getPhoneNumber());
 
         buttonScheduleAppointment.setText(getString(R.string.schedule_appoiontment));

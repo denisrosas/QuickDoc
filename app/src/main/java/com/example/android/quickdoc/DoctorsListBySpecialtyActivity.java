@@ -289,6 +289,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED)
             && (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)){
 
+            Toast.makeText(this, R.string.could_not_get_location, Toast.LENGTH_LONG).show();
             return -1;
 
         } else {
@@ -299,6 +300,7 @@ public class DoctorsListBySpecialtyActivity extends AppCompatActivity {
             if(locationUser!=null)
                 return (locationUser.distanceTo(locationDoctor) / 1000); //meters to km
 
+            Toast.makeText(this, R.string.could_not_get_location, Toast.LENGTH_LONG).show();
             return -1;
         }
 

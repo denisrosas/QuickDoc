@@ -92,4 +92,5 @@
     <string name="date_format" translatable="false">yyyy-MM-dd</string>
     <string name="date_separator" translatable="false">-</string>
     <string name="slash" translatable="false">/</string>
+    <string name="could_not_get_location">Could not get your location</string>
 </resources>
