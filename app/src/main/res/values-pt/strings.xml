@@ -84,4 +84,5 @@
     <string name="image_left_arrow_description">Imagem de seta para esquerda. Selecionar dia anterior.</string>
     <string name="image_right_arrow_description">Imagem de seta para direita. Selecionar dia seguinte.</string>
     <string name="could_not_get_location">Não foi possível obter sua localização</string>
+    <string name="no_past_appointments_found">Você já availou todas as suas consultas passadas</string>
 </resources>

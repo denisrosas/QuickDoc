@@ -93,4 +93,5 @@
     <string name="date_separator" translatable="false">-</string>
     <string name="slash" translatable="false">/</string>
     <string name="could_not_get_location">Could not get your location</string>
+    <string name="no_past_appointments_found">You already evaluated all your past appointments</string>
 </resources>

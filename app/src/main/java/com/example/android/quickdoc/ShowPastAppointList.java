@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.quickdoc.adapters.PastAppointMentsListAdapter;
@@ -37,6 +38,7 @@ public class ShowPastAppointList extends AppCompatActivity {
     private static final String FIREBASE_CHILD_USER_APP = "user_appointments";
     private static final String FIREBASE_CHILD_DATE = "date";
 
+    @BindView(R.id.tv_explanation) TextView textViewExplanation;
     @BindView(R.id.rv_past_appointments) RecyclerView recyclerView;
     @BindView(R.id.progressBar) ProgressBar progressBar;
 
@@ -80,12 +82,16 @@ public class ShowPastAppointList extends AppCompatActivity {
                     }
                 }
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setHasFixedSize(true);
-                PastAppointMentsListAdapter adapter = new PastAppointMentsListAdapter(userAppointments, childKeys, getApplicationContext());
+                if(userAppointments.size()>0) {
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setHasFixedSize(true);
+                    PastAppointMentsListAdapter adapter = new PastAppointMentsListAdapter(userAppointments, childKeys, getApplicationContext());
 
-                recyclerView.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter);
+                } else{
+                    textViewExplanation.setText(R.string.no_past_appointments_found);
+                }
 
                 progressBar.setVisibility(View.INVISIBLE);
 
